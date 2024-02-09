@@ -7,6 +7,7 @@ export const postSelectQuery = (userId?: string) =>
     content: true,
     createdAt: true,
     title: true,
+    code: true,
     user: {
       select: {
         image: true,
@@ -41,6 +42,22 @@ export const getLatestPosts = (userId?: string) =>
       createdAt: "desc",
     },
     select: postSelectQuery(userId),
+  });
+
+export const getPostView = (id: string, userId?: string) =>
+  prisma.post.findFirstOrThrow({
+    where: {
+      id,
+    },
+    select: {
+      ...postSelectQuery(userId),
+      replies: {
+        select: postSelectQuery(userId),
+      },
+      parent: {
+        select: postSelectQuery(userId),
+      },
+    },
   });
 
 export type PostHome = Prisma.PromiseReturnType<typeof getLatestPosts>[number];

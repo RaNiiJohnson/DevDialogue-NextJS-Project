@@ -24,7 +24,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="flex flex-col h-full">
               <Header />
-              <div className="flex-1 w-full max-w-lg m-auto py-14">
+              <div className="flex-1 w-full max-w-2xl m-auto border-x border-solid ">
                 {children}
               </div>
               <Footer />

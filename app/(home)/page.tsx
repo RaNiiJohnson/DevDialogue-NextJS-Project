@@ -1,3 +1,4 @@
+import { Post } from "@/features/post/Post";
 import { getAuthSession } from "@/lib/auth";
 import { getLatestPosts } from "@/query/post.query";
 
@@ -8,9 +9,7 @@ export default async function HomePage() {
   return (
     <>
       {posts.map((post) => (
-        <div key={post.id}>
-          {post.content} {post.title}
-        </div>
+        <Post post={post} key={post.id} />
       ))}
     </>
   );
