@@ -8,6 +8,7 @@ export const postSelectQuery = (userId?: string) =>
     createdAt: true,
     title: true,
     code: true,
+    voteCount: true,
     user: {
       select: {
         image: true,
@@ -27,7 +28,6 @@ export const postSelectQuery = (userId?: string) =>
       select: {
         replies: true,
         PostView: true,
-        votes: true,
       },
     },
   } satisfies Prisma.PostSelect);

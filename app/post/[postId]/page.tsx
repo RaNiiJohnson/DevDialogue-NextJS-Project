@@ -1,5 +1,13 @@
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import CodeDisplay from "@/features/post/Code";
+import PostViewComponent from "@/features/post/PostViewComponent";
 import { getAuthSession } from "@/lib/auth";
 import { getPostView } from "@/query/post.query";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { notFound } from "next/navigation";
 
 export default async function PostView({
@@ -17,5 +25,5 @@ export default async function PostView({
     return notFound();
   }
 
-  return <>{post.content}</>;
+  return <PostViewComponent post={post} />;
 }

@@ -9,9 +9,9 @@ export type PostProps = {
 
 export const Post = ({ post }: PostProps) => {
   return (
-    <div className="grid grid-cols-12 gap-5 border-y border-solid px-6 py-3">
-      <div className="col-span-2 text-sm text-end py-1">
-        <div>{post._count.votes} votes</div>
+    <div className="grid grid-cols-12 gap-5 border-solid border-y">
+      <div className="col-span-2 py-1 text-sm text-end">
+        <div>{post.voteCount} votes</div>
         <div className="text-muted-foreground ">
           {post._count.replies} answers
         </div>
@@ -19,11 +19,11 @@ export const Post = ({ post }: PostProps) => {
           {post._count.PostView} view
         </div>
       </div>
-      <div className=" flex col-span-10 text-blue-400 flex-col gap-1">
+      <div className="flex flex-col col-span-10 gap-1 text-blue-400 ">
         <Link className="text-lg" href={`/post/${post.id}`}>
           {post.title}
         </Link>
-        <div className="flex gap-1 text-xs items-center justify-end">
+        <div className="flex items-center justify-end gap-1 text-xs">
           <Avatar size="xs">
             <AvatarFallback>{post.user.username[0]}</AvatarFallback>
             {post.user.image && <AvatarImage src={post.user.image} alt="" />}

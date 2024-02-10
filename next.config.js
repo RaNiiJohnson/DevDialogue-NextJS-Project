@@ -1,8 +1,10 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
-const removeImports = require("next-remove-imports")();
-module.exports = removeImports({
-  experimental: { esmExternals: true },
-});
+const withMDX = require("@next/mdx")();
 
-module.exports = nextConfig;
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // Configure `pageExtensions` to include MDX files
+  pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
+  // Optionally, add any other Next.js config below
+};
+
+module.exports = withMDX(nextConfig);

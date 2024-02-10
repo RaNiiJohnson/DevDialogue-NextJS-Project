@@ -1,6 +1,5 @@
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { TailwindIndicator } from "@/components/utils/TailwindIndicator";
-import { Footer } from "@/features/layout/Footer";
 import { Header } from "@/features/layout/Header";
 import { SiteConfig } from "@/lib/site-config";
 import type { Metadata } from "next";
@@ -24,10 +23,9 @@ export default function RootLayout({ children }: PropsWithChildren) {
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="flex flex-col h-full">
               <Header />
-              <div className="flex-1 w-full max-w-2xl m-auto border-x border-solid ">
+              <div className="flex-1 w-full max-w-2xl px-6 py-3 m-auto border-solid border-x ">
                 {children}
               </div>
-              <Footer />
             </div>
             <TailwindIndicator />
           </ThemeProvider>

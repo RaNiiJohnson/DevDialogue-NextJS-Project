@@ -1,34 +1,38 @@
 "use client";
 
-import "ace-builds/src-noconflict/mode-javascript";
-import "ace-builds/src-noconflict/theme-monokai";
-import React, { useState } from "react";
-import AceEditor from "react-ace";
+import CodeEditor from "@uiw/react-textarea-code-editor";
+import { useState } from "react";
 
-const CodeEditor: React.FC = () => {
-  const [code, setCode] = useState<string>("");
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Vous pouvez gérer la logique de soumission ici
-    console.log("Code soumis :", code);
-  };
-
+export default function CodeEditorComponent() {
+  const [code, setCode] = useState(`
+export default function CodeEditorComponent() {
+  const [code, setCode] = useState();
   return (
-    <form onSubmit={handleSubmit}>
-      <AceEditor
-        mode="javascript"
-        theme="monokai"
-        onChange={(newCode) => setCode(newCode)}
-        value={code}
-        editorProps={{ $blockScrolling: true }}
-        fontSize={14}
-        width="100%"
-        height="300px"
-      />
-      <button type="submit">Submit</button>
-    </form>
+    <CodeEditor
+      value={code}
+      language="js"
+      placeholder="Please enter JS code."
+      onChange={(evn) => setCode(evn.target.value)}
+      padding={15}
+      className=""
+      style={{
+        fontFamily:
+          "ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
+      }}
+    />
   );
-};
-
-export default CodeEditor;
+}`);
+  return (
+    <CodeEditor
+      value={code}
+      language="js"
+      placeholder="Please enter JS code."
+      onChange={(evn) => setCode(evn.target.value)}
+      padding={15}
+      style={{
+        fontFamily:
+          "ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
+      }}
+    />
+  );
+}
