@@ -27,6 +27,17 @@ export const downVoteAction = async (postId: string) => {
           id: existingVote.id,
         },
       });
+      // Réduisez le nombre de votes sur le post
+      await prisma.post.update({
+        where: {
+          id: postId,
+        },
+        data: {
+          voteCount: {
+            decrement: 1,
+          },
+        },
+      });
     } else {
       // Sinon, si c'était un downvote, supprimez-le
       await prisma.vote.delete({
@@ -42,7 +53,7 @@ export const downVoteAction = async (postId: string) => {
         },
         data: {
           voteCount: {
-            decrement: 1,
+            increment: 1,
           },
         },
       });

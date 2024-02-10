@@ -19,6 +19,7 @@ export const postSelectQuery = (userId?: string) =>
     votes: {
       select: {
         userId: true,
+        type: true,
       },
       where: {
         userId: userId ?? "error",

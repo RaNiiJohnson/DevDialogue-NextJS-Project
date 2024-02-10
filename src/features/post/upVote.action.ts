@@ -21,14 +21,7 @@ export const upVoteAction = async (postId: string) => {
   if (existingVote) {
     // Si l'utilisateur a déjà voté sur ce post
     if (existingVote.type === "upvote") {
-      // Si c'était un upvote, supprimez-le pour simuler un downvote
-      await prisma.vote.delete({
-        where: {
-          id: existingVote.id,
-        },
-      });
-    } else {
-      // Sinon, si c'était un downvote, supprimez-le
+      // Si c'était un upvote
       await prisma.vote.delete({
         where: {
           id: existingVote.id,
@@ -46,25 +39,44 @@ export const upVoteAction = async (postId: string) => {
           },
         },
       });
+    } else {
+      // Sinon, si c'était un downvote, supprimez-le
+      await prisma.vote.delete({
+        where: {
+          id: existingVote.id,
+        },
+      });
+
+      // Réduisez le nombre de votes sur le post
+      await prisma.post.update({
+        where: {
+          id: postId,
+        },
+        data: {
+          voteCount: {
+            increment: 1,
+          },
+        },
+      });
     }
   } else {
-    // Si l'utilisateur n'a pas encore voté sur ce post, créez un downvote
+    // Si l'utilisateur n'a pas encore voté sur ce post, créez un upvote
     await prisma.vote.create({
       data: {
         postId,
         userId: session.user.id,
-        type: "downvote",
+        type: "upvote",
       },
     });
 
-    // Réduisez le nombre de votes sur le post
+    // augmenter le nombre de votes sur le post
     await prisma.post.update({
       where: {
         id: postId,
       },
       data: {
         voteCount: {
-          decrement: 1,
+          increment: 1,
         },
       },
     });

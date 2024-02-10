@@ -20,7 +20,12 @@ export default async function PostViewComponent({ post }: PostProps) {
         <span className="flex flex-col items-center col-span-1 gap-2">
           <HoverCard>
             <HoverCardTrigger asChild>
-              <UpVoteButton postId={post.id} />
+              <span>
+                <UpVoteButton
+                  postId={post.id}
+                  upVote={post.votes[0]?.type === "upvote"}
+                />
+              </span>
             </HoverCardTrigger>
             <HoverCardContent className="w-80">
               <div>This question is useful and clear</div>
@@ -29,7 +34,12 @@ export default async function PostViewComponent({ post }: PostProps) {
           <span>{post.voteCount}</span>
           <HoverCard>
             <HoverCardTrigger asChild>
-              <DownVoteButton postId={post.id} />
+              <span>
+                <DownVoteButton
+                  postId={post.id}
+                  downVote={post.votes[0]?.type === "downvote"}
+                />
+              </span>
             </HoverCardTrigger>
             <HoverCardContent className="w-80">
               <div>This question is unclear or not useful</div>
