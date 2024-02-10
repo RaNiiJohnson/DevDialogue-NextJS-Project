@@ -5,7 +5,8 @@ import {
 } from "@/components/ui/hover-card";
 import CodeDisplay from "@/features/post/Code";
 import { PostHome } from "@/query/post.query";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { DownVoteButton } from "./DownVoteButton";
+import { UpVoteButton } from "./UpVoteButton";
 
 type PostProps = {
   post: PostHome;
@@ -19,9 +20,7 @@ export default async function PostViewComponent({ post }: PostProps) {
         <span className="flex flex-col items-center col-span-1 gap-2">
           <HoverCard>
             <HoverCardTrigger asChild>
-              <div className="p-2 border rounded-full dark:hover:bg-slate-700 hover:bg-slate-200">
-                <ChevronUp />
-              </div>
+              <UpVoteButton />
             </HoverCardTrigger>
             <HoverCardContent className="w-80">
               <div>This question is useful and clear</div>
@@ -30,9 +29,7 @@ export default async function PostViewComponent({ post }: PostProps) {
           <span>{post.voteCount}</span>
           <HoverCard>
             <HoverCardTrigger asChild>
-              <div className="p-2 border rounded-full dark:hover:bg-slate-700 hover:bg-slate-200">
-                <ChevronDown />
-              </div>
+              <DownVoteButton />
             </HoverCardTrigger>
             <HoverCardContent className="w-80">
               <div>This question is unclear or not useful</div>
