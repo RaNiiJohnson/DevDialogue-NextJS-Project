@@ -1,39 +1,22 @@
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
-import { PostHome } from "@/query/post.query";
-import { ChevronDown, ChevronUp } from "lucide-react";
+"use client";
 
-type PostProps = {
-  post: PostHome;
-};
+import Markdown from "react-markdown";
+const markdown = `
+# My article about 
 
-export function HoverCardDemo({ post }: PostProps) {
+to learn
+
+## how to learn code
+
+1. Learn how to code 
+2. Learn how to learn to code
+
+`;
+
+export default function HoverCardDemo() {
   return (
-    <>
-      <HoverCard>
-        <HoverCardTrigger asChild>
-          <div className="p-2 border rounded-full dark:hover:bg-slate-700 hover:bg-slate-200">
-            <ChevronUp />
-          </div>
-        </HoverCardTrigger>
-        <HoverCardContent className="w-80">
-          <div>This question is useful and clear</div>
-        </HoverCardContent>
-      </HoverCard>
-      <span>{post.voteCount}</span>
-      <HoverCard>
-        <HoverCardTrigger asChild>
-          <div className="p-2 border rounded-full dark:hover:bg-slate-700 hover:bg-slate-200">
-            <ChevronDown />
-          </div>
-        </HoverCardTrigger>
-        <HoverCardContent className="w-80">
-          <div>This question is unclear or not useful</div>
-        </HoverCardContent>
-      </HoverCard>
-    </>
+    <div className="prose dark:prose-invert">
+      <Markdown>{markdown}</Markdown>
+    </div>
   );
 }

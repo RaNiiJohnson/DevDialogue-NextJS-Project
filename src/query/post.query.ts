@@ -7,8 +7,17 @@ export const postSelectQuery = (userId?: string) =>
     content: true,
     createdAt: true,
     title: true,
-    code: true,
     voteCount: true,
+    vueXTime: true,
+    PostView: {
+      select: {
+        postId: true,
+        userId: true,
+      },
+      where: {
+        userId: userId ?? "error",
+      },
+    },
     user: {
       select: {
         image: true,

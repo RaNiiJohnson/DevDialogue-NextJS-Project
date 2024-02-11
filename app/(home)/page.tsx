@@ -7,10 +7,10 @@ export default async function HomePage() {
   const posts = await getLatestPosts(session?.user.id);
 
   return (
-    <>
+    <div>
       {posts.map((post) => (
         <Post post={post} key={post.id} />
       ))}
-    </>
+    </div>
   );
 }

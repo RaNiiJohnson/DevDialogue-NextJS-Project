@@ -19,7 +19,7 @@ const Avatar = React.forwardRef<
         "h-10 w-10": size === "default",
         "h-16 w-16": size === "lg",
         "h-8 w-8": size === "sm",
-        "h-6 w-6": size === "xs",
+        "h-5 w-5 rounded-none": size === "xs",
       },
       className
     )}

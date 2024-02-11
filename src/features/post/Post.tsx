@@ -1,7 +1,10 @@
+"use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { formatDate } from "@/lib/date";
 import { PostHome } from "@/query/post.query";
 import Link from "next/link";
+import { viewAction } from "./view.action";
 
 export type PostProps = {
   post: PostHome;
@@ -20,7 +23,11 @@ export const Post = ({ post }: PostProps) => {
         </div>
       </div>
       <div className="flex flex-col col-span-10 gap-1 text-blue-400 ">
-        <Link className="text-lg" href={`/post/${post.id}`}>
+        <Link
+          onClick={() => viewAction(post.id)}
+          className="text-lg"
+          href={`/post/${post.id}`}
+        >
           {post.title}
         </Link>
         <div className="flex items-center justify-end gap-1 text-xs">
@@ -29,7 +36,7 @@ export const Post = ({ post }: PostProps) => {
             {post.user.image && <AvatarImage src={post.user.image} alt="" />}
           </Avatar>
           <div>{post.user.username}</div>
-          <div className="flex gap-1 text-sm text-muted-foreground">
+          <div className="flex gap-1 text-xs text-muted-foreground">
             asked {post.createdAt ? <p> {formatDate(post.createdAt)}</p> : null}{" "}
             ago
           </div>
