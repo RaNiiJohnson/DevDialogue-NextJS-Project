@@ -1,5 +1,5 @@
 import { WritePostForm } from "./WritePostForm";
 
-export default function Write() {
+export default function AskQuestions() {
   return <WritePostForm />;
 }

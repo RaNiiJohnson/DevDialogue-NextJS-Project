@@ -10,26 +10,41 @@ export type PostProps = {
   post: PostHome;
 };
 
+const limiterText = (text: string, limiter: number) => {
+  const words = text.replace(/[^a-zA-Z\s]/g, "").split("");
+
+  if (words.length > limiter) {
+    return words.slice(0, limiter).join("") + "...";
+  }
+
+  return text;
+};
+
 export const Post = ({ post }: PostProps) => {
   return (
-    <div className="grid grid-cols-12 gap-5 border-solid border-y">
+    <div className="grid grid-cols-12 gap-5 py-2 border-solid border-y">
       <div className="col-span-2 py-1 text-sm text-end">
-        <div>{post.voteCount} votes</div>
-        <div className="text-muted-foreground ">
-          {post._count.replies} answers
+        <div>
+          {post.voteCount} vote{post.voteCount > 1 ? "s" : ""}
         </div>
         <div className="text-muted-foreground ">
-          {post._count.PostView} view
+          {post._count.replies} answer{post._count.replies > 1 ? "s" : ""}
+        </div>
+        <div className="text-muted-foreground ">
+          {post._count.PostView} view{post._count.PostView > 1 ? "s" : ""}
         </div>
       </div>
-      <div className="flex flex-col col-span-10 gap-1 text-blue-400 ">
+      <div className="flex flex-col col-span-10 gap-1 text-blue-600 ">
         <Link
           onClick={() => viewAction(post.id)}
           className="text-lg"
-          href={`/post/${post.id}`}
+          href={`/posts/${post.id}`}
         >
           {post.title}
         </Link>
+        <div className="text-sm text-muted-foreground">
+          {limiterText(post.content, 50)}
+        </div>
         <div className="flex items-center justify-end gap-1 text-xs">
           <Avatar size="xs">
             <AvatarFallback>{post.user.username[0]}</AvatarFallback>

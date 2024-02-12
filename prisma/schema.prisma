@@ -68,16 +68,16 @@ model User {
   sessions  Session[]
   Vote      Vote[]
   postViews PostView[]
-  Code      Code[]
 }
 
 //Application
 
 model Post {
   id        String   @id @default(cuid())
-  title     String
+  title     String?
   content   String
   parentId  String?
+  code      String?
   vueXTime  Int      @default(0)
   userId    String
   createdAt DateTime @default(now())
@@ -88,20 +88,19 @@ model Post {
   replies  Post[]     @relation("comments")
   parent   Post?      @relation("comments", fields: [parentId], references: [id], onDelete: Cascade)
   PostView PostView[]
-  codes    Code[]
 }
 
-model Code {
-  id     String @id @default(cuid())
-  postId String
-  userId String
-  code   String
-  title  String
-  type   String @default("javascript")
+// model Code {
+//   id     String @id @default(cuid())
+//   postId String
+//   userId String
+//   code   String
+//   title  String
+//   type   String @default("javascript")
 
-  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
+//   post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+//   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+// }
 
 model PostView {
   id        String   @id @default(cuid())

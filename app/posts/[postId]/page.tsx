@@ -1,7 +1,9 @@
+import { Separator } from "@/components/ui/separator";
 import PostViewComponent from "@/features/post/PostViewComponent";
 import { getAuthSession } from "@/lib/auth";
 import { getPostView } from "@/query/post.query";
 import { notFound } from "next/navigation";
+import { ReplyPostForm } from "./ReplyPostForm";
 
 export default async function PostView({
   params,
@@ -18,5 +20,18 @@ export default async function PostView({
     return notFound();
   }
 
-  return <PostViewComponent post={post} />;
+  return (
+    <div>
+      <div className="pb-5">
+        <PostViewComponent post={post} />
+      </div>
+
+      <Separator />
+
+      {post.replies.map((reply) => (
+        <PostViewComponent post={reply} key={reply.id} />
+      ))}
+      <ReplyPostForm post={post} />
+    </div>
+  );
 }

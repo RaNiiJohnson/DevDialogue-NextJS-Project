@@ -16,39 +16,46 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { ContentTextArea } from "@/features/post/ContentTextArea";
+import { PostHome } from "@/query/post.query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CodeEditor from "@uiw/react-textarea-code-editor";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { createReply } from "./reply-post-action";
 
 const formSchema = z.object({
-  title: z.string().min(2, {
-    message: "Title must be at least 2 characters.",
-  }),
   content: z.string().min(2, {
     message: "content must be at least 2 characters.",
   }),
   code: z.string().optional(),
 });
 
-export function WritePostForm() {
+export type ReplyPostFormValues = z.infer<typeof formSchema>;
+
+type PostProps = {
+  post: PostHome;
+};
+
+export function ReplyPostForm({ post }: PostProps) {
+  const router = useRouter();
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
       content: "",
       code: "",
     },
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const postId = await createReply(post.id, values);
+    if (postId) {
+      router.refresh();
+    }
+    form.reset();
   }
 
   return (
@@ -56,26 +63,10 @@ export function WritePostForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name="title"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Title</FormLabel>
-              <FormControl>
-                <Input placeholder="title" {...field} />
-              </FormControl>
-              <FormDescription>
-                Be precise, as if you were posing a question to someone else.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
           name="content"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>What are the specifics of your issue?</FormLabel>
+              <FormLabel>You have any advice?</FormLabel>
               <FormControl>
                 <ContentTextArea
                   {...field}
@@ -83,11 +74,6 @@ export function WritePostForm() {
                   placeholder="your text (Markdown syntax allowed)."
                 />
               </FormControl>
-              <FormDescription>
-                Explain how you encountered the problem you’re trying to solve,
-                and any difficulties that have prevented you from solving it
-                yourself.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -127,7 +113,9 @@ export function WritePostForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Poster</Button>
+        <Button variant={"devDialogueVariant"} type="submit">
+          Reply
+        </Button>
       </form>
     </Form>
   );

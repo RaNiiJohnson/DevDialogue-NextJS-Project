@@ -19,7 +19,11 @@ export const UpVoteButton = ({
     <Button
       disabled={isPending}
       variant={"outline"}
-      onClick={() => startTransition(() => upVoteAction(postId))}
+      onClick={() =>
+        startTransition(() => {
+          upVoteAction(postId);
+        })
+      }
       className={clsx(
         "p-2 border rounded-full dark:hover:bg-slate-700 hover:bg-slate-200",
         {

@@ -39,6 +39,7 @@ export const upVoteAction = async (postId: string) => {
           },
         },
       });
+
     } else {
       // Sinon, si c'était un downvote, supprimez-le
       await prisma.vote.delete({

@@ -4,6 +4,8 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { PostHome } from "@/query/post.query";
+import Markdown from "react-markdown";
+import CodeDisplay from "./Code";
 import { DownVoteButton } from "./DownVoteButton";
 import { UpVoteButton } from "./UpVoteButton";
 
@@ -14,10 +16,14 @@ type PostProps = {
 export default async function PostViewComponent({ post }: PostProps) {
   return (
     <div>
-      <div className="pb-2 border-b">
-        <h1 className="text-2xl">{post.title}</h1>
-        <div>{post?.vueXTime} vue time</div>
-      </div>
+      {post.title ? (
+        <div className="pb-2 border-b">
+          <h1 className="text-2xl">{post.title}</h1>
+          <div>{post?.vueXTime} vue time</div>
+        </div>
+      ) : (
+        ""
+      )}
       <div className="grid grid-cols-12 gap-4 pt-2">
         <span className="flex flex-col items-center col-span-1 gap-1">
           <HoverCard>
@@ -49,8 +55,10 @@ export default async function PostViewComponent({ post }: PostProps) {
           </HoverCard>
         </span>
         <span className="col-span-11">
-          <p>{post.content}</p>
-          {/* {post.code ? <CodeDisplay code={post.code} /> : ""} */}
+          <Markdown className="prose dark:prose-invert">
+            {post.content}
+          </Markdown>
+          {post.code ? <CodeDisplay code={post.code} /> : ""}
         </span>
       </div>
     </div>
