@@ -3,11 +3,16 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import { Separator } from "@/components/ui/separator";
+import { formatDate } from "@/lib/date";
 import { PostHome } from "@/query/post.query";
+import clsx from "clsx";
 import Markdown from "react-markdown";
+import UserAvatar from "../user/Avatar";
+import MoreOptions from "../user/MoreOptions";
 import CodeDisplay from "./Code";
-import { DownVoteButton } from "./DownVoteButton";
-import { UpVoteButton } from "./UpVoteButton";
+import { DownVoteButton } from "./votes/DownVoteButton";
+import { UpVoteButton } from "./votes/UpVoteButton";
 
 type PostProps = {
   post: PostHome;
@@ -15,11 +20,20 @@ type PostProps = {
 
 export default async function PostViewComponent({ post }: PostProps) {
   return (
-    <div>
+    <div className="m-2 ">
       {post.title ? (
         <div className="pb-2 border-b">
-          <h1 className="text-2xl">{post.title}</h1>
-          <div>{post?.vueXTime} vue time</div>
+          <h1 className="text-3xl">{post.title}</h1>
+          <div className="flex gap-4 py-2 text-xs">
+            <div>
+              <span className="text-muted-foreground">Asked</span>{" "}
+              {formatDate(post.createdAt)} ago
+            </div>
+            <div>
+              <span className="text-muted-foreground">Viewed</span>{" "}
+              {post?.vueXTime} times
+            </div>
+          </div>
         </div>
       ) : (
         ""
@@ -39,7 +53,7 @@ export default async function PostViewComponent({ post }: PostProps) {
               <div>This question is useful and clear</div>
             </HoverCardContent>
           </HoverCard>
-          <span className="text-lg">{post.voteCount}</span>
+          <span className="text-lg font-bold">{post.voteCount}</span>
           <HoverCard>
             <HoverCardTrigger asChild>
               <span>
@@ -54,13 +68,25 @@ export default async function PostViewComponent({ post }: PostProps) {
             </HoverCardContent>
           </HoverCard>
         </span>
-        <span className="col-span-11">
-          <Markdown className="prose dark:prose-invert">
-            {post.content}
-          </Markdown>
-          {post.code ? <CodeDisplay code={post.code} /> : ""}
+        <span className="flex justify-between col-span-11 gap-3">
+          <div className="">
+            <Markdown
+              className={clsx("prose dark:prose-invert", {
+                "bg-muted p-2": post.title,
+              })}
+            >
+              {post.content}
+            </Markdown>
+            {post.code ? <CodeDisplay code={post.code} /> : ""}
+          </div>
+          <MoreOptions post={post} />
         </span>
       </div>
+      <div className="col-span-12">
+        <UserAvatar postView={true} post={post} />
+      </div>
+
+      {!post.title && <Separator />}
     </div>
   );
 }

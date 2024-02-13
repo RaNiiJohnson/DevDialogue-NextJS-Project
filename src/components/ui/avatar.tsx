@@ -14,10 +14,10 @@ const Avatar = React.forwardRef<
   <AvatarPrimitive.Root
     ref={ref}
     className={cn(
-      "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
+      "relative flex h-10 w-10 shrink-0 overflow-hidden ",
       {
         "h-10 w-10": size === "default",
-        "h-16 w-16": size === "lg",
+        "h-16 w-16 rounded-none": size === "lg",
         "h-8 w-8": size === "sm",
         "h-5 w-5 rounded-none": size === "xs",
       },
@@ -42,12 +42,18 @@ AvatarImage.displayName = AvatarPrimitive.Image.displayName;
 
 const AvatarFallback = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Fallback>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback> & {
+    size: "default" | "lg" | "sm" | "xs";
+  }
+>(({ className, size = "default", ...props }, ref) => (
   <AvatarPrimitive.Fallback
     ref={ref}
     className={cn(
       "flex h-full w-full items-center justify-center rounded-full bg-muted",
+      {
+        "rounded-sm": size === "lg",
+        "": size === "default",
+      },
       className
     )}
     {...props}

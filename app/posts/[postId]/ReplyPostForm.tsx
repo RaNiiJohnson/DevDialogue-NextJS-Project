@@ -94,7 +94,7 @@ export function ReplyPostForm({ post }: PostProps) {
                         {...field}
                         className="bg-slate-200 dark:bg-slate-900"
                         language="js"
-                        placeholder="Please enter JS code."
+                        placeholder="Enter your code."
                         padding={15}
                         style={{
                           fontFamily:
@@ -103,8 +103,7 @@ export function ReplyPostForm({ post }: PostProps) {
                       />
                     </FormControl>
                     <FormDescription>
-                      Please provide the code where you encountered the issue,
-                      if you have any code to show.
+                      If applicable, include any specific code.
                     </FormDescription>
                     <FormMessage />
                   </AccordionContent>

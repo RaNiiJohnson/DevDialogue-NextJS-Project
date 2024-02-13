@@ -10,6 +10,11 @@ export const postSelectQuery = (userId?: string) =>
     voteCount: true,
     vueXTime: true,
     code: true,
+    parent: {
+      select: {
+        id: true,
+      },
+    },
     PostView: {
       select: {
         postId: true,
@@ -63,6 +68,9 @@ export const getPostView = (id: string, userId?: string) =>
     select: {
       ...postSelectQuery(userId),
       replies: {
+        // orderBy: {
+        //   voteCount: "desc",
+        // },
         select: postSelectQuery(userId),
       },
       parent: {

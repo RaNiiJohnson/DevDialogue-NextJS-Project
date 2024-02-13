@@ -18,20 +18,20 @@ export const UpVoteButton = ({
   return (
     <Button
       disabled={isPending}
-      variant={"outline"}
+      variant={"secondary"}
       onClick={() =>
         startTransition(() => {
           upVoteAction(postId);
         })
       }
       className={clsx(
-        "p-2 border rounded-full dark:hover:bg-slate-700 hover:bg-slate-200",
+        "p-2 border rounded-full dark:hover:bg-slate-700 hover:bg-slate-300",
         {
-          "bg-slate-300 dark:bg-slate-500": upVote,
+          "bg-yellow-400 dark:bg-yellow-800 ": upVote,
         }
       )}
     >
-      {isPending ? <Loader size={30} /> : <ChevronUp size={30} />}
+      {isPending ? <Loader size={20} /> : <ChevronUp size={20} />}
     </Button>
   );
 };

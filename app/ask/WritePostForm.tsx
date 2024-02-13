@@ -71,7 +71,10 @@ export function WritePostForm() {
             <FormItem>
               <FormLabel>Title</FormLabel>
               <FormControl>
-                <Input placeholder="title" {...field} />
+                <Input
+                  placeholder="Be precise, as if you were posing a question to someone else."
+                  {...field}
+                />
               </FormControl>
               {/* <FormDescription>
                 Be precise, as if you were posing a question to someone else.
@@ -93,11 +96,11 @@ export function WritePostForm() {
                   placeholder="your text (Markdown syntax allowed)."
                 />
               </FormControl>
-              {/* <FormDescription>
+              <FormDescription>
                 Explain how you encountered the problem you’re trying to solve,
                 and any difficulties that have prevented you from solving it
                 yourself.
-              </FormDescription> */}
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -118,7 +121,7 @@ export function WritePostForm() {
                         {...field}
                         className="bg-slate-200 dark:bg-slate-900"
                         language="js"
-                        placeholder="Please enter JS code."
+                        placeholder="Enter your code."
                         padding={15}
                         style={{
                           fontFamily:

@@ -25,3 +25,38 @@ export const formatDate = (date: Date | string) => {
   }
   return "now";
 };
+
+export const dateParser = (num: Date | string) => {
+  let timestamp: number;
+
+  if (num instanceof Date) {
+    // Si num est de type Date, pas besoin de le parser
+    timestamp = num.getTime();
+  } else {
+    // Si num est de type string, le parser
+    timestamp = Date.parse(num);
+  }
+
+  let options: Intl.DateTimeFormatOptions = {
+    hour: "2-digit",
+    minute: "2-digit",
+    // weekday: "long",
+    second: "2-digit",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour12: false,
+  };
+
+  // let timestamp = Date.parse(num);
+
+  let date = new Date(timestamp).toLocaleDateString("en-EN", options);
+
+  return (
+    date.toString().split(",", 2).join(",") +
+    " " +
+    "at" +
+    " " +
+    date.toString().split(",").slice(2)
+  );
+};

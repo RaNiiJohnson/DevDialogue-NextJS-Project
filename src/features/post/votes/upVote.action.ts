@@ -39,7 +39,6 @@ export const upVoteAction = async (postId: string) => {
           },
         },
       });
-
     } else {
       // Sinon, si c'était un downvote, supprimez-le
       await prisma.vote.delete({
@@ -83,6 +82,6 @@ export const upVoteAction = async (postId: string) => {
     });
   }
 
-  revalidatePath("/");
+  // revalidatePath("/");
   revalidatePath(`/posts/${postId}`);
 };

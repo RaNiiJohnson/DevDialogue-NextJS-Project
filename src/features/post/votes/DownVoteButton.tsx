@@ -18,16 +18,16 @@ export const DownVoteButton = ({
   return (
     <Button
       disabled={isPending}
-      variant={"outline"}
+      variant={"secondary"}
       onClick={() => startTransition(() => downVoteAction(postId))}
       className={clsx(
-        "p-2 border rounded-full dark:hover:bg-slate-700 hover:bg-slate-200",
+        "p-2 border rounded-full dark:hover:bg-slate-700 hover:bg-slate-300",
         {
-          "bg-slate-300 dark:bg-slate-500": downVote,
+          "bg-slate-400 dark:bg-slate-500": downVote,
         }
       )}
     >
-      {isPending ? <Loader size={30} /> : <ChevronDown size={30} />}
+      {isPending ? <Loader size={20} /> : <ChevronDown size={20} />}
     </Button>
   );
 };

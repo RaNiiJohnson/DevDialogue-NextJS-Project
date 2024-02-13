@@ -1,4 +1,3 @@
-import { Separator } from "@/components/ui/separator";
 import PostViewComponent from "@/features/post/PostViewComponent";
 import { getAuthSession } from "@/lib/auth";
 import { getPostView } from "@/query/post.query";
@@ -25,9 +24,9 @@ export default async function PostView({
       <div className="pb-5">
         <PostViewComponent post={post} />
       </div>
-
-      <Separator />
-
+      <div className="text-lg">
+        {post._count.replies} Answer{post._count.replies > 0 ? "s" : ""}
+      </div>
       {post.replies.map((reply) => (
         <PostViewComponent post={reply} key={reply.id} />
       ))}

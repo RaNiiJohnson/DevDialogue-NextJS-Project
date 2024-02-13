@@ -22,7 +22,7 @@ const CodeDisplay = ({ code }: CodeDisplayProps) => {
         className=" bg-slate-200 dark:bg-slate-900"
         value={code}
         language="js"
-        placeholder="Please enter JS code."
+        placeholder="Enter your code."
         padding={16}
         style={{
           fontFamily:
