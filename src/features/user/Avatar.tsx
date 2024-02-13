@@ -27,13 +27,13 @@ export default function UserAvatar({ post, postView }: PostProps) {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col p-2 py-3 bg-primary-foreground">
+        <div className="flex flex-col gap-2 p-2 py-3 bg-primary-foreground">
           <div className="flex gap-1 text-xs text-muted-foreground">
             {post.title ? "asked" : "answered"} {dateParser(post.createdAt)}
           </div>
           <Link href={"#"} className="flex gap-1">
-            <Avatar size="lg">
-              <AvatarFallback size="lg" className="text-xl">
+            <Avatar size="custom">
+              <AvatarFallback size="lg" className="text-lg">
                 {post.user.username.slice(0, 3)}
               </AvatarFallback>
               {post.user.image && (

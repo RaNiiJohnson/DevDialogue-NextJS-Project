@@ -5,6 +5,7 @@ import { Loader } from "@/components/ui/loader";
 import clsx from "clsx";
 import { ChevronUp } from "lucide-react";
 import { useTransition } from "react";
+import { toast } from "sonner";
 import { upVoteAction } from "./upVote.action";
 
 export const UpVoteButton = ({
@@ -20,8 +21,11 @@ export const UpVoteButton = ({
       disabled={isPending}
       variant={"secondary"}
       onClick={() =>
-        startTransition(() => {
-          upVoteAction(postId);
+        startTransition(async () => {
+          const done = await upVoteAction(postId);
+          if (done) {
+            toast(done.message);
+          }
         })
       }
       className={clsx(

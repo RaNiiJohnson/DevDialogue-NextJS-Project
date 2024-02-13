@@ -48,7 +48,7 @@ export const Post = ({ post }: PostProps) => {
             {limiterText(post.content, 50)}
           </div>
         </div>
-        <MoreOptions post={post} />
+        <MoreOptions parent={false} post={post} />
       </div>
 
       <div className="col-span-12">

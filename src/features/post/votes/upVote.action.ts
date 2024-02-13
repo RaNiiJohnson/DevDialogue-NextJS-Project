@@ -39,6 +39,11 @@ export const upVoteAction = async (postId: string) => {
           },
         },
       });
+      revalidatePath("/");
+      revalidatePath(`/posts/${postId}`);
+      return {
+        message: "neutre",
+      };
     } else {
       // Sinon, si c'était un downvote, supprimez-le
       await prisma.vote.delete({
@@ -58,6 +63,11 @@ export const upVoteAction = async (postId: string) => {
           },
         },
       });
+      revalidatePath("/");
+      revalidatePath(`/posts/${postId}`);
+      return {
+        message: "neutre",
+      };
     }
   } else {
     // Si l'utilisateur n'a pas encore voté sur ce post, créez un upvote
@@ -80,8 +90,10 @@ export const upVoteAction = async (postId: string) => {
         },
       },
     });
+    revalidatePath("/");
+    revalidatePath(`/posts/${postId}`);
+    return {
+      message: "neutre",
+    };
   }
-
-  // revalidatePath("/");
-  revalidatePath(`/posts/${postId}`);
 };

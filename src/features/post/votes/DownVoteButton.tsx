@@ -5,6 +5,7 @@ import { Loader } from "@/components/ui/loader";
 import clsx from "clsx";
 import { ChevronDown } from "lucide-react";
 import { useTransition } from "react";
+import { toast } from "sonner";
 import { downVoteAction } from "./downVote.action";
 
 export const DownVoteButton = ({
@@ -19,7 +20,14 @@ export const DownVoteButton = ({
     <Button
       disabled={isPending}
       variant={"secondary"}
-      onClick={() => startTransition(() => downVoteAction(postId))}
+      onClick={() =>
+        startTransition(async () => {
+          const done = await downVoteAction(postId);
+          if (done) {
+            toast(done.message);
+          }
+        })
+      }
       className={clsx(
         "p-2 border rounded-full dark:hover:bg-slate-700 hover:bg-slate-300",
         {

@@ -21,7 +21,7 @@ type PostProps = {
 export default async function PostViewComponent({ post }: PostProps) {
   return (
     <div className="m-2 ">
-      {post.title ? (
+      {!post.parent ? (
         <div className="pb-2 border-b">
           <h1 className="text-3xl">{post.title}</h1>
           <div className="flex gap-4 py-2 text-xs">
@@ -79,7 +79,11 @@ export default async function PostViewComponent({ post }: PostProps) {
             </Markdown>
             {post.code ? <CodeDisplay code={post.code} /> : ""}
           </div>
-          <MoreOptions post={post} />
+          {!post.parent ? (
+            <MoreOptions parent={true} post={post} />
+          ) : (
+            <MoreOptions parent={false} post={post} />
+          )}
         </span>
       </div>
       <div className="col-span-12">

@@ -108,8 +108,8 @@ model PostView {
   postId    String
   createdAt DateTime @default(now())
 
-  User User @relation(fields: [userId], references: [id])
-  Post Post @relation(fields: [postId], references: [id])
+  User User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
 
 model Vote {
@@ -120,5 +120,5 @@ model Vote {
   createdAt DateTime @default(now())
 
   user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  Post Post? @relation(fields: [postId], references: [id])
+  Post Post? @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
