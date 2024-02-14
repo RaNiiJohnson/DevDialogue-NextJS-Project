@@ -1,6 +1,5 @@
 "use client";
 
-import { Textarea } from "@/components/ui/textarea";
 import clsx from "clsx";
 import {
   ChangeEvent,
@@ -9,7 +8,7 @@ import {
   useRef,
 } from "react";
 
-export const ContentTextArea = forwardRef<
+export const ContentTextArea2 = forwardRef<
   HTMLTextAreaElement,
   ComponentPropsWithoutRef<"textarea">
 >(({ onChange, className, rows = 1, ...props }, ref) => {
@@ -24,7 +23,7 @@ export const ContentTextArea = forwardRef<
   };
   if (props)
     return (
-      <Textarea
+      <textarea
         ref={ref}
         onChange={(e) => {
           handleChange(e);
@@ -40,4 +39,4 @@ export const ContentTextArea = forwardRef<
     );
 });
 
-ContentTextArea.displayName = "ContentTextArea";
+ContentTextArea2.displayName = "ContentTextArea";

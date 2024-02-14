@@ -24,7 +24,7 @@ const limiterText = (text: string, limiter: number) => {
 export const Post = ({ post }: PostProps) => {
   return (
     <div className="relative grid grid-cols-12 gap-5 py-3 border-solid border-y">
-      <div className="col-span-2 py-1 text-sm text-end">
+      <div className="flex flex-col col-span-2 py-1 text-sm text-end">
         <div>
           {post.voteCount} vote{post.voteCount > 1 ? "s" : ""}
         </div>

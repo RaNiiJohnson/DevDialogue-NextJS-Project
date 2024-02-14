@@ -8,9 +8,11 @@ import { formatDate } from "@/lib/date";
 import { PostHome } from "@/query/post.query";
 import clsx from "clsx";
 import Markdown from "react-markdown";
+import { CommentPostForm } from "../../../app/posts/[postId]/comments/CommentPostForm";
 import UserAvatar from "../user/Avatar";
 import MoreOptions from "../user/MoreOptions";
 import CodeDisplay from "./Code";
+import CommentView from "./CommentView";
 import { DownVoteButton } from "./votes/DownVoteButton";
 import { UpVoteButton } from "./votes/UpVoteButton";
 
@@ -27,19 +29,17 @@ export default async function PostViewComponent({ post }: PostProps) {
           <div className="flex gap-4 py-2 text-xs">
             <div>
               <span className="text-muted-foreground">Asked</span>{" "}
-              {formatDate(post.createdAt)} ago
+              {formatDate(post.createdAt)}
             </div>
             <div>
               <span className="text-muted-foreground">Viewed</span>{" "}
-              {post?.vueXTime} times
+              {post?.vueXTime} time{post?.vueXTime > 1 ? "s" : ""}
             </div>
           </div>
         </div>
-      ) : (
-        ""
-      )}
+      ) : null}
       <div className="grid grid-cols-12 gap-4 pt-2">
-        <span className="flex flex-col items-center col-span-1 gap-1">
+        <span className="flex flex-col items-center col-span-1 row-span-5 gap-1">
           <HoverCard>
             <HoverCardTrigger asChild>
               <span>
@@ -85,12 +85,23 @@ export default async function PostViewComponent({ post }: PostProps) {
             <MoreOptions parent={false} post={post} />
           )}
         </span>
+        <div className="col-span-11">
+          <UserAvatar postView={true} post={post} />
+        </div>
+        <div className="col-span-11">
+          {post.replies &&
+            !post.title &&
+            post.replies.map((reply) => (
+              <CommentView postId={reply.id} key={reply.id} />
+            ))}
+        </div>
+        {!post.title && (
+          <div className="col-span-11 py-2">
+            <CommentPostForm post={post} />
+            <Separator className="mt-2 mb-8" />
+          </div>
+        )}
       </div>
-      <div className="col-span-12">
-        <UserAvatar postView={true} post={post} />
-      </div>
-
-      {!post.title && <Separator />}
     </div>
   );
 }

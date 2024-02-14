@@ -1,22 +1,32 @@
 "use client";
 
-import Markdown from "react-markdown";
-const markdown = `
-# My article about 
-
-to learn
-
-## how to learn code
-
-1. Learn how to code 
-2. Learn how to learn to code
-
-`;
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function HoverCardDemo() {
   return (
-    <div className="prose dark:prose-invert">
-      <Markdown>{markdown}</Markdown>
+    <div>
+      <div className="flex items-end justify-between py-6">
+        <Skeleton className="w-1/3 h-8" />
+        <Skeleton className="h-10 w-28" />
+      </div>
+      <div className="relative grid grid-cols-12 gap-5 py-3 border-solid border-y">
+        <div className="flex flex-col items-end col-span-2 gap-1 py-1 text-sm">
+          <Skeleton className="w-1/2 h-4" />
+          <Skeleton className="w-4/6 h-4" />
+          <Skeleton className="w-1/2 h-4" />
+        </div>
+        <div className="flex justify-between col-span-10 gap-2 ">
+          <div className="flex flex-col w-full gap-1">
+            <Skeleton className="h-10" />
+            <Skeleton className="w-8/12 h-6" />
+          </div>
+          <Skeleton className="w-6 h-2" />
+        </div>
+
+        <div className="flex items-center justify-end col-span-12">
+          <Skeleton className="w-1/3 h-4" />
+        </div>
+      </div>
     </div>
   );
 }

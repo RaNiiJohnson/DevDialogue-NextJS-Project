@@ -7,7 +7,6 @@ import Link from "next/link";
 export default async function HomePage() {
   const session = await getAuthSession();
   const posts = await getLatestPosts(session?.user.id);
-
   return (
     <div>
       <div className="flex justify-between py-6">

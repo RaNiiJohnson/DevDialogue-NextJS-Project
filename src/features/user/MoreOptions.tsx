@@ -52,7 +52,7 @@ export default function MoreOptions({ post, parent }: PostProps) {
               <DropdownMenuItem asChild>
                 <Button
                   variant={"ghost"}
-                  className="flex justify-between w-full gap-2"
+                  className="flex justify-between w-full gap-2 "
                 >
                   Delete <Trash2 size={17} />
                 </Button>
@@ -70,7 +70,7 @@ export default function MoreOptions({ post, parent }: PostProps) {
                 onClick={async () => {
                   const postId = await DeletePost(post.id);
 
-                  toast.success("course successfully deleted");
+                  toast.success("Post successfully deleted");
 
                   setOpen(false);
                   if (parent) router.push("/");

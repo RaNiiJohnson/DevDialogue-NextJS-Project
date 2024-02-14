@@ -9,19 +9,19 @@ export const formatDate = (date: Date | string) => {
   const diffInYears = Math.floor(diffInMonths / 12);
 
   if (diffInYears > 0) {
-    return `${diffInYears}y`;
+    return `${diffInYears}y ago`;
   }
   if (diffInMonths > 0) {
-    return `${diffInMonths}m`;
+    return `${diffInMonths}m ago`;
   }
   if (diffInDays > 0) {
-    return `${diffInDays}d`;
+    return `${diffInDays}d ago`;
   }
   if (diffInHours > 0) {
-    return `${diffInHours}h`;
+    return `${diffInHours}h ago`;
   }
   if (diffInMinutes > 0) {
-    return `${diffInMinutes}m`;
+    return `${diffInMinutes}m ago`;
   }
   return "now";
 };

@@ -14,13 +14,13 @@ const Avatar = React.forwardRef<
   <AvatarPrimitive.Root
     ref={ref}
     className={cn(
-      "relative flex h-10 w-10 shrink-0 overflow-hidden ",
+      "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
       {
         "h-10 w-10": size === "default",
-        "h-16 w-16 rounded-none": size === "lg",
+        "h-16 w-16": size === "lg",
         "h-8 w-8": size === "sm",
-        "h-5 w-5 rounded-none": size === "xs",
-        "h-14 w-14": size === "custom",
+        "h-5 w-5": size === "xs",
+        "h-14 w-14 rounded-sm": size === "custom",
       },
       className
     )}

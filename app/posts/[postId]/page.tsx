@@ -15,7 +15,7 @@ export default async function PostView({
   const post = await getPostView(params.postId, session?.user.id);
 
   if (!post) {
-    console.log("not found on post not reply");
+    // console.log("not found on post not reply");
     return notFound();
   }
 

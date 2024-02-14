@@ -46,6 +46,17 @@ export const postSelectQuery = (userId?: string) =>
         PostView: true,
       },
     },
+    replies: {
+      select: {
+        id: true,
+        content: true,
+        user: {
+          select: {
+            username: true,
+          },
+        },
+      },
+    },
   } satisfies Prisma.PostSelect);
 
 export const getLatestPosts = (userId?: string) =>
@@ -61,7 +72,7 @@ export const getLatestPosts = (userId?: string) =>
   });
 
 export const getPostView = (id: string, userId?: string) =>
-  prisma.post.findFirstOrThrow({
+  prisma.post.findUnique({
     where: {
       id,
     },

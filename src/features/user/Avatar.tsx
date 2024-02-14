@@ -23,7 +23,7 @@ export default function UserAvatar({ post, postView }: PostProps) {
             <div>{post.user.username}</div>
           </Link>
           <div className="flex gap-1 text-xs text-muted-foreground">
-            asked {formatDate(post.createdAt)} ago
+            asked {formatDate(post.createdAt)}
           </div>
         </div>
       ) : (

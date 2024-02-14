@@ -1,6 +1,7 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { AuthOptions, getServerSession } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
+import FacebookProvider from "next-auth/providers/facebook";
 import { env } from "./env";
 import { prisma } from "./prisma";
 
@@ -17,6 +18,18 @@ export const authOptions: AuthOptions = {
           name: profile.login,
           email: profile.email,
           image: profile.avatar_url,
+        };
+      },
+    }),
+    FacebookProvider({
+      clientId: env.FACEBOOK_ID,
+      clientSecret: env.FACEBOOK_SECRET,
+      profile(profile) {
+        return {
+          id: profile.id,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture.data.url,
         };
       },
     }),
