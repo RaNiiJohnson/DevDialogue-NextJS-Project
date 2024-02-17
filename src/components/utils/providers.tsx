@@ -6,7 +6,7 @@ import { Toaster } from "sonner";
 export const Providers = (props: PropsWithChildren) => {
   return (
     <>
-      <Toaster />
+      <Toaster richColors />
       {props.children}
     </>
   );

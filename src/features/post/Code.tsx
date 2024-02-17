@@ -19,11 +19,11 @@ const CodeDisplay = ({ code }: CodeDisplayProps) => {
     <div className="relative">
       <CodeEditor
         readOnly={true}
-        className=" bg-slate-200 dark:bg-slate-900"
+        className="bg-blue-100 dark:bg-blue-950"
         value={code}
         language="js"
         placeholder="Enter your code."
-        padding={16}
+        padding={20}
         style={{
           fontFamily:
             "ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
@@ -31,7 +31,7 @@ const CodeDisplay = ({ code }: CodeDisplayProps) => {
       />
 
       <Copy
-        className="absolute z-20 transition cursor-pointer top-2 right-2 text-muted-foreground hover:text-current"
+        className="absolute z-20 transition cursor-pointer top-1 right-1 text-muted-foreground hover:text-current"
         size={15}
         onClick={copyCode}
       />

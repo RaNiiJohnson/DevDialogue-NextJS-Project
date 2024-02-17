@@ -3,7 +3,6 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { Separator } from "@/components/ui/separator";
 import { formatDate } from "@/lib/date";
 import { PostHome } from "@/query/post.query";
 import clsx from "clsx";
@@ -13,30 +12,38 @@ import UserAvatar from "../user/Avatar";
 import MoreOptions from "../user/MoreOptions";
 import CodeDisplay from "./Code";
 import CommentView from "./CommentView";
+import HomeLayout from "./HomeLayout";
 import { DownVoteButton } from "./votes/DownVoteButton";
 import { UpVoteButton } from "./votes/UpVoteButton";
+import { UserProfile } from "@/query/user.query";
+import { getAuthSession } from "@/lib/auth";
 
 type PostProps = {
   post: PostHome;
+  user?: UserProfile | null;
 };
 
-export default async function PostViewComponent({ post }: PostProps) {
+export default async function PostViewComponent({ post, user }: PostProps) {
   return (
     <div className="m-2 ">
-      {!post.parent ? (
-        <div className="pb-2 border-b">
-          <h1 className="text-3xl">{post.title}</h1>
-          <div className="flex gap-4 py-2 text-xs">
-            <div>
-              <span className="text-muted-foreground">Asked</span>{" "}
-              {formatDate(post.createdAt)}
-            </div>
-            <div>
-              <span className="text-muted-foreground">Viewed</span>{" "}
-              {post?.vueXTime} time{post?.vueXTime > 1 ? "s" : ""}
+      {!post.parent && post.title ? (
+        <HomeLayout
+          title={"/" + post.title.split(" ").slice(0, 2).join(" ") + " ..."}
+        >
+          <div className="py-3 border-b">
+            <h1 className="text-3xl">{post.title}</h1>
+            <div className="flex gap-4 py-2 text-xs">
+              <div>
+                <span className="text-muted-foreground">Asked</span>{" "}
+                {formatDate(post.createdAt)}
+              </div>
+              <div>
+                <span className="text-muted-foreground">Viewed</span>{" "}
+                {post?.vueXTime} time{post?.vueXTime > 1 ? "s" : ""}
+              </div>
             </div>
           </div>
-        </div>
+        </HomeLayout>
       ) : null}
       <div className="grid grid-cols-12 gap-4 pt-2">
         <span className="flex flex-col items-center col-span-1 row-span-5 gap-1">
@@ -72,7 +79,7 @@ export default async function PostViewComponent({ post }: PostProps) {
           <div className="">
             <Markdown
               className={clsx("prose dark:prose-invert", {
-                "bg-muted p-2": post.title,
+                "bg-card p-2": post.title,
               })}
             >
               {post.content}
@@ -80,9 +87,9 @@ export default async function PostViewComponent({ post }: PostProps) {
             {post.code ? <CodeDisplay code={post.code} /> : ""}
           </div>
           {!post.parent ? (
-            <MoreOptions parent={true} post={post} />
+            <MoreOptions parent={true} post={post} user={user} />
           ) : (
-            <MoreOptions parent={false} post={post} />
+            <MoreOptions parent={false} post={post} user={user} />
           )}
         </span>
         <div className="col-span-11">
@@ -91,14 +98,18 @@ export default async function PostViewComponent({ post }: PostProps) {
         <div className="col-span-11">
           {post.replies &&
             !post.title &&
-            post.replies.map((reply) => (
-              <CommentView postId={reply.id} key={reply.id} />
+            post.replies.map((reply, index) => (
+              <CommentView
+                postId={reply.id}
+                length={post.replies.length}
+                index={index}
+                key={reply.id}
+              />
             ))}
         </div>
         {!post.title && (
           <div className="col-span-11 py-2">
-            <CommentPostForm post={post} />
-            <Separator className="mt-2 mb-8" />
+            <CommentPostForm post={post} user={user} />
           </div>
         )}
       </div>

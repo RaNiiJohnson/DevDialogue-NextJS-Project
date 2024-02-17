@@ -48,6 +48,6 @@ export const viewAction = async (postId: string) => {
     });
   }
 
-  // revalidatePath("/");
+  revalidatePath("/");
   revalidatePath(`/posts/${postId}`);
 };

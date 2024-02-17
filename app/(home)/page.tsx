@@ -1,25 +1,18 @@
-import { Button } from "@/components/ui/button";
+import HomeLayout from "@/features/post/HomeLayout";
 import { Post } from "@/features/post/Post";
 import { getAuthSession } from "@/lib/auth";
 import { getLatestPosts } from "@/query/post.query";
-import Link from "next/link";
+import { getUserProfile } from "@/query/user.query";
 
 export default async function HomePage() {
   const session = await getAuthSession();
   const posts = await getLatestPosts(session?.user.id);
+  const user = await getUserProfile(session?.user.id ?? "");
   return (
-    <div>
-      <div className="flex justify-between py-6">
-        <div className="text-2xl">All Questions</div>
-        <Link href="/ask">
-          <Button variant={"devDialogueVariant"} size={"sm"}>
-            Ask Questions
-          </Button>
-        </Link>
-      </div>
+    <HomeLayout title="All Questions">
       {posts.map((post) => (
-        <Post post={post} key={post.id} />
+        <Post post={post} key={post.id} user={user} />
       ))}
-    </div>
+    </HomeLayout>
   );
 }

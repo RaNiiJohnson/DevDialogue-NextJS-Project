@@ -6,9 +6,11 @@ import UserAvatar from "../user/Avatar";
 import { viewAction } from "./view.action";
 
 import MoreOptions from "../user/MoreOptions";
+import { UserProfile } from "@/query/user.query";
 
 export type PostProps = {
   post: PostHome;
+  user?: UserProfile | null;
 };
 
 const limiterText = (text: string, limiter: number) => {
@@ -21,9 +23,9 @@ const limiterText = (text: string, limiter: number) => {
   return text;
 };
 
-export const Post = ({ post }: PostProps) => {
+export const Post = ({ post, user }: PostProps) => {
   return (
-    <div className="relative grid grid-cols-12 gap-5 py-3 border-solid border-y">
+    <div className="relative grid grid-cols-12 gap-5 py-3 border-b border-solid">
       <div className="flex flex-col col-span-2 py-1 text-sm text-end">
         <div>
           {post.voteCount} vote{post.voteCount > 1 ? "s" : ""}
@@ -39,7 +41,7 @@ export const Post = ({ post }: PostProps) => {
         <div className="flex flex-col gap-1">
           <Link
             onClick={() => viewAction(post.id)}
-            className="text-lg text-blue-600 "
+            className="text-lg text-primary "
             href={`/posts/${post.id}`}
           >
             {post.title}
@@ -48,7 +50,7 @@ export const Post = ({ post }: PostProps) => {
             {limiterText(post.content, 50)}
           </div>
         </div>
-        <MoreOptions parent={false} post={post} />
+        <MoreOptions parent={false} post={post} user={user} />
       </div>
 
       <div className="col-span-12">

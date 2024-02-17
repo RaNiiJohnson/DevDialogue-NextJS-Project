@@ -57,6 +57,16 @@ export const postSelectQuery = (userId?: string) =>
         },
       },
     },
+    save: {
+      select: {
+        id: true,
+        createdAt: true,
+        post: true,
+        postId: true,
+        user: true,
+        userId: true,
+      },
+    },
   } satisfies Prisma.PostSelect);
 
 export const getLatestPosts = (userId?: string) =>
@@ -90,15 +100,16 @@ export const getPostView = (id: string, userId?: string) =>
     },
   });
 
-export const getPost = (id: string, userId: string) => {
-  return prisma.post.findUnique({
+export const getPost = (id: string, userId: string) =>
+  prisma.post.findUnique({
     where: {
       id,
+      userId,
+      parentId: null,
     },
     select: {
       ...postSelectQuery(userId),
     },
   });
-};
 
 export type PostHome = Prisma.PromiseReturnType<typeof getLatestPosts>[number];

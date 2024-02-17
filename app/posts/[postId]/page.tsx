@@ -1,6 +1,7 @@
 import PostViewComponent from "@/features/post/PostViewComponent";
 import { getAuthSession } from "@/lib/auth";
 import { getPostView } from "@/query/post.query";
+import { getUserProfile } from "@/query/user.query";
 import { notFound } from "next/navigation";
 import { ReplyPostForm } from "./ReplyPostForm";
 
@@ -13,6 +14,7 @@ export default async function PostView({
 }) {
   const session = await getAuthSession();
   const post = await getPostView(params.postId, session?.user.id);
+  const user = await getUserProfile(session?.user.id ?? "");
 
   if (!post) {
     // console.log("not found on post not reply");
@@ -21,16 +23,14 @@ export default async function PostView({
 
   return (
     <div>
-      <div className="pb-5">
-        <PostViewComponent post={post} />
-      </div>
+      <PostViewComponent post={post} user={user} />
       <div className="text-lg">
         {post._count.replies} Answer{post._count.replies > 0 ? "s" : ""}
       </div>
       {post.replies.map((reply) => (
-        <PostViewComponent post={reply} key={reply.id} />
+        <PostViewComponent post={reply} key={reply.id} user={user} />
       ))}
-      <ReplyPostForm post={post} />
+      <ReplyPostForm post={post} user={user} />
     </div>
   );
 }

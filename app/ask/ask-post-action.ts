@@ -2,10 +2,12 @@
 
 import { prisma } from "@/lib/prisma";
 import { getUser } from "@/query/user.query";
-import { WritePostFormValues } from "./WritePostForm";
+import { WritePostFormValues } from "./AskPostForm";
 
 export const createPost = async (values: WritePostFormValues) => {
   const user = await getUser();
+
+  if (!user) return;
 
   const post = await prisma.post.create({
     data: {

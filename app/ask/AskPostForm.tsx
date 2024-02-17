@@ -24,7 +24,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { createPost } from "./write-post-action";
+import { createPost } from "./ask-post-action";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -54,10 +54,10 @@ export function WritePostForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const postId = await createPost(values);
     if (postId) {
-      // window.location.href = `${window.location.origin}/posts/${postId}`;
+      window.location.href = `${window.location.origin}/posts/${postId}`;
 
       router.push(`/posts/${postId}`);
-      // router.refresh();
+      router.refresh();
       toast.success("Post published successfully");
     }
     form.reset();
@@ -142,7 +142,7 @@ export function WritePostForm() {
             </FormItem>
           )}
         />
-        <Button variant={"devDialogueVariant"} type="submit">
+        <Button variant={"default"} type="submit">
           Poster
         </Button>
       </form>

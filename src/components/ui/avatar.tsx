@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 const Avatar = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root> & {
-    size: "default" | "lg" | "sm" | "xs" | "custom";
+    size: "default" | "lg" | "sm" | "xs" | "custom" | "profil";
   }
 >(({ className, size = "default", ...props }, ref) => (
   <AvatarPrimitive.Root
@@ -21,6 +21,7 @@ const Avatar = React.forwardRef<
         "h-8 w-8": size === "sm",
         "h-5 w-5": size === "xs",
         "h-14 w-14 rounded-sm": size === "custom",
+        "h-32 w-32 rounded-sm": size === "profil",
       },
       className
     )}
@@ -50,7 +51,7 @@ const AvatarFallback = React.forwardRef<
   <AvatarPrimitive.Fallback
     ref={ref}
     className={cn(
-      "flex h-full w-full items-center justify-center rounded-full bg-muted",
+      "flex h-full w-full items-center justify-center rounded-full bg-muted-foreground/30",
       {
         "rounded-sm": size === "lg",
         "": size === "default",

@@ -1,3 +1,4 @@
+import { BackButton } from "@/components/BackButton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { buttonVariants } from "@/components/ui/button";
 import { AlertTriangle } from "lucide-react";
@@ -13,6 +14,7 @@ export default function NotFound() {
         <Link href="/" className={buttonVariants({ variant: "link" })}>
           Home
         </Link>
+        <BackButton />
       </Alert>
     </div>
   );

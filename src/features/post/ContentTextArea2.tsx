@@ -32,7 +32,7 @@ export const ContentTextArea2 = forwardRef<
         rows={rows}
         className={clsx(
           className,
-          "resize-none w-full bg-transparent outline-none"
+          "textarea resize-none w-full bg-transparent outline-none overflow-y-auto max-h-[180px] text-sm border-b shadow-sm placeholder:text-muted-foreground focus:border-b-primary"
         )}
         {...props}
       />

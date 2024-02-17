@@ -1,7 +1,7 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { AuthOptions, getServerSession } from "next-auth";
-import GithubProvider from "next-auth/providers/github";
 import FacebookProvider from "next-auth/providers/facebook";
+import GithubProvider from "next-auth/providers/github";
 import { env } from "./env";
 import { prisma } from "./prisma";
 
@@ -45,5 +45,6 @@ export const authOptions: AuthOptions = {
 
 export const getAuthSession = async () => {
   const session = await getServerSession(authOptions);
+
   return session;
 };

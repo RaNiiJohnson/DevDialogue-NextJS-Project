@@ -10,6 +10,8 @@ export const createReply = async (
 ) => {
   const user = await getUser();
 
+  if (!user) return null;
+
   await prisma.post.create({
     data: {
       content: values.content,

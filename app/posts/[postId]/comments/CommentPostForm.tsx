@@ -8,8 +8,10 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import RedirectionButton from "@/features/layout/auth/RedirectionLoginButton";
 import { ContentTextArea2 } from "@/features/post/ContentTextArea2";
 import { PostHome } from "@/query/post.query";
+import { UserProfile } from "@/query/user.query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -27,9 +29,10 @@ export type ReplyPostFormValues = z.infer<typeof formSchema>;
 
 type PostProps = {
   post: PostHome;
+  user?: UserProfile | null;
 };
 
-export function CommentPostForm({ post }: PostProps) {
+export function CommentPostForm({ post, user }: PostProps) {
   const router = useRouter();
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -51,7 +54,7 @@ export function CommentPostForm({ post }: PostProps) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <div className="flex items-center justify-between gap-1">
+        <div className="w-full gap-1 ">
           <FormField
             control={form.control}
             name="content"
@@ -59,8 +62,8 @@ export function CommentPostForm({ post }: PostProps) {
               <FormItem>
                 <FormControl>
                   <ContentTextArea2
+                    autoCorrect="false"
                     {...field}
-                    className="border-none "
                     placeholder="add comment..."
                   />
                 </FormControl>
@@ -68,9 +71,18 @@ export function CommentPostForm({ post }: PostProps) {
               </FormItem>
             )}
           />
-          <Button variant={"secondary"} size="sm" type="submit">
-            Comment
-          </Button>
+          {user ? (
+            <Button variant={"secondary"} size="sm" type="submit">
+              Comment
+            </Button>
+          ) : (
+            <RedirectionButton
+              size="sm"
+              variantButton="secondary"
+              title="Comment"
+              action="To comment this post"
+            />
+          )}
         </div>
       </form>
     </Form>

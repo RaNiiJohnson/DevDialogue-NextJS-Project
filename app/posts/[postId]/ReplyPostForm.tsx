@@ -16,8 +16,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import RedirectionButton from "@/features/layout/auth/RedirectionLoginButton";
 import { ContentTextArea } from "@/features/post/ContentTextArea";
 import { PostHome } from "@/query/post.query";
+import { UserProfile } from "@/query/user.query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import { useRouter } from "next/navigation";
@@ -36,9 +38,10 @@ export type ReplyPostFormValues = z.infer<typeof formSchema>;
 
 type PostProps = {
   post: PostHome;
+  user?: UserProfile | null;
 };
 
-export function ReplyPostForm({ post }: PostProps) {
+export function ReplyPostForm({ post, user }: PostProps) {
   const router = useRouter();
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -112,9 +115,18 @@ export function ReplyPostForm({ post }: PostProps) {
             </FormItem>
           )}
         />
-        <Button variant={"devDialogueVariant"} type="submit">
-          Reply
-        </Button>
+        {user ? (
+          <Button variant={"default"} type="submit">
+            Reply
+          </Button>
+        ) : (
+          <RedirectionButton
+            action="To reply this post"
+            title="Reply"
+            size="default"
+            variantButton="default"
+          />
+        )}
       </form>
     </Form>
   );

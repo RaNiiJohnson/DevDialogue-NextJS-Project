@@ -1,5 +1,4 @@
-import { Typography } from "@/components/ui/Typography";
-import { WritePostForm } from "./WritePostForm";
+import { WritePostForm } from "./AskPostForm";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -8,7 +7,7 @@ export default function AskQuestions() {
     <Card>
       <CardHeader>
         <CardTitle>
-          <Typography variant={"h2"}>Your Question</Typography>{" "}
+          <div>Your Question</div>
         </CardTitle>
       </CardHeader>
       <CardContent>

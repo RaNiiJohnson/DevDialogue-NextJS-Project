@@ -11,7 +11,9 @@ export const AuthButton = async () => {
   return (
     <div>
       <Avatar size="sm">
-        <AvatarFallback>{session.user?.name?.[0]}</AvatarFallback>
+        <AvatarFallback size="default">
+          {session.user?.name?.[0]}
+        </AvatarFallback>
         {session.user.image && (
           <AvatarImage
             src={session.user.image}

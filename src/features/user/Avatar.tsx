@@ -10,10 +10,13 @@ type PostProps = {
 
 export default function UserAvatar({ post, postView }: PostProps) {
   return (
-    <div className="flex items-center justify-end gap-1 pt-2 text-xs text-blue-600 ">
+    <div className="flex items-center justify-end gap-1 pt-2 text-xs text-primary ">
       {!post.parent?.id && !postView ? (
-        <div className="flex items-center gap-1 bg-primary-foreground">
-          <Link href={"#"} className="flex items-center gap-1">
+        <div className="flex items-center gap-1 p-1 rounded-sm bg-accent/50">
+          <Link
+            href={`/users/${post.user.id}`}
+            className="flex items-center gap-1"
+          >
             <Avatar size="xs">
               <AvatarFallback size="default">
                 {post.user.username[0]}
@@ -27,11 +30,11 @@ export default function UserAvatar({ post, postView }: PostProps) {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col gap-2 p-2 py-3 bg-primary-foreground">
+        <div className="flex flex-col gap-2 p-2 py-3 rounded-sm bg-accent/50">
           <div className="flex gap-1 text-xs text-muted-foreground">
             {post.title ? "asked" : "answered"} {dateParser(post.createdAt)}
           </div>
-          <Link href={"#"} className="flex gap-1">
+          <Link href={`/users/${post.user.id}`} className="flex gap-1">
             <Avatar size="custom">
               <AvatarFallback size="lg" className="text-lg">
                 {post.user.username.slice(0, 3)}

@@ -10,6 +10,7 @@ export const LoginButton = () => {
   const [isPending, startTransition] = useTransition();
   return (
     <Button
+      variant={"link"}
       onClick={() => {
         startTransition(() => signIn());
       }}

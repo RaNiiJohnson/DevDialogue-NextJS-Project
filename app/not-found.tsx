@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { BackButton } from "@/components/BackButton";
 import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
@@ -22,6 +23,7 @@ export default function NotFound() {
         <Link href="/" className={buttonVariants({ variant: "link" })}>
           Home
         </Link>
+        <BackButton />
       </CardContent>
     </Card>
   );
