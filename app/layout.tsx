@@ -30,14 +30,13 @@ export default function RootLayout({
           <Providers>
             <div className="flex flex-col h-full border-solid border-x">
               <Header />
-              <div className="flex-1 w-full max-w-2xl min-h-[90vh] px-6 py-3 m-auto h-2/4 border-solid border-x">
+              <div className="flex-1 w-full max-w-2xl min-h-[90vh] px-6 py-3 m-auto h-2/4 border-solid border-x max-sm:px-2">
                 {children}
               </div>
               <Footer />
             </div>
             {modal}
           </Providers>
-          <TailwindIndicator />
         </ThemeProvider>
       </body>
     </html>

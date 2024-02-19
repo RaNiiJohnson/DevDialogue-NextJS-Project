@@ -13,6 +13,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { PostHome } from "@/query/post.query";
@@ -21,40 +22,49 @@ import clsx from "clsx";
 import { Edit, MoreHorizontal, SaveAll, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import RedirectionButton from "../layout/auth/RedirectionLoginButton";
 import { DeletePost } from "../post/delete-post.action";
+import { SaveButton } from "../post/saves/SaveButton";
 
 type PostProps = {
   post: PostHome;
   parent: boolean;
   user?: UserProfile | null;
+  reply?: boolean;
+  className?: string;
 };
 
-export default function MoreOptions({ post, parent, user }: PostProps) {
+export default function MoreOptions({
+  post,
+  parent,
+  user,
+  reply,
+  className,
+}: PostProps) {
+  const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
   const router = useRouter();
   return (
-    <div className="z-40">
+    <div className={className}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <MoreHorizontal size={20} />
+          <MoreHorizontal
+            size={24}
+            className="transition rounded-sm cursor-pointer hover:bg-accent"
+          />
         </DropdownMenuTrigger>
         <AlertDialog open={open} onOpenChange={setOpen}>
           <DropdownMenuContent>
             <DropdownMenuItem asChild>
               {user && parent ? (
-                <Button
-                  variant={"ghost"}
-                  className="flex justify-between w-full gap-2"
-                  onClick={() => {
-                    return toast.success("saved");
-                  }}
-                >
-                  Save
-                  <SaveAll size={17} />
-                </Button>
+                <SaveButton
+                  postView={true}
+                  moreOptions={true}
+                  postId={post.id}
+                  saved={post.save[0]?.type === "saved"}
+                />
               ) : (
                 <>
                   {!user ? (
@@ -73,13 +83,17 @@ export default function MoreOptions({ post, parent, user }: PostProps) {
                 </>
               )}
             </DropdownMenuItem>
-
+            <DropdownMenuSeparator />
             <AlertDialogTrigger asChild>
               {user?.id === post.user.id && (
                 <>
                   <DropdownMenuItem asChild>
                     <Link
-                      href={`/posts/${post.id}/edit`}
+                      href={
+                        reply
+                          ? `/posts/${post.id}/edit/replies`
+                          : `/posts/${post.id}/edit`
+                      }
                       className={clsx(
                         buttonVariants({ variant: "ghost", size: "icon" }),
                         "flex justify-between w-full "
@@ -108,19 +122,24 @@ export default function MoreOptions({ post, parent, user }: PostProps) {
               <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
               <Button
+                disabled={isPending}
                 variant={"destructive"}
-                onClick={async () => {
-                  const postId = await DeletePost(post.id);
+                onClick={() =>
+                  startTransition(async () => {
+                    const postId = await DeletePost(post.id);
 
-                  toast.success("Post successfully deleted");
+                    reply
+                      ? toast.success("response successfully deleted")
+                      : toast.success("Post successfully deleted");
 
-                  setOpen(false);
-                  if (parent) router.push("/");
-                }}
+                    setOpen(false);
+                    if (parent) router.push("/");
+                  })
+                }
               >
-                Delete
+                {isPending ? "Deleting.." : "Delete"}
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>

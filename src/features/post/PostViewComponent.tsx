@@ -5,18 +5,18 @@ import {
 } from "@/components/ui/hover-card";
 import { formatDate } from "@/lib/date";
 import { PostHome } from "@/query/post.query";
+import { UserProfile } from "@/query/user.query";
 import clsx from "clsx";
 import Markdown from "react-markdown";
-import { CommentPostForm } from "../../../app/posts/[postId]/comments/CommentPostForm";
 import UserAvatar from "../user/Avatar";
 import MoreOptions from "../user/MoreOptions";
 import CodeDisplay from "./Code";
-import CommentView from "./CommentView";
 import HomeLayout from "./HomeLayout";
+import { CommentPostForm } from "./comments/CommentPostForm";
+import CommentView from "./comments/CommentView";
+import { SaveButton } from "./saves/SaveButton";
 import { DownVoteButton } from "./votes/DownVoteButton";
 import { UpVoteButton } from "./votes/UpVoteButton";
-import { UserProfile } from "@/query/user.query";
-import { getAuthSession } from "@/lib/auth";
 
 type PostProps = {
   post: PostHome;
@@ -30,16 +30,28 @@ export default async function PostViewComponent({ post, user }: PostProps) {
         <HomeLayout
           title={"/" + post.title.split(" ").slice(0, 2).join(" ") + " ..."}
         >
-          <div className="py-3 border-b">
-            <h1 className="text-3xl">{post.title}</h1>
-            <div className="flex gap-4 py-2 text-xs">
-              <div>
-                <span className="text-muted-foreground">Asked</span>{" "}
-                {formatDate(post.createdAt)}
+          <div className="relative">
+            <div className="pt-5 pb-3 border-b">
+              <div className="absolute top-1 right-1">
+                <MoreOptions parent={true} post={post} user={user} />
               </div>
-              <div>
-                <span className="text-muted-foreground">Viewed</span>{" "}
-                {post?.vueXTime} time{post?.vueXTime > 1 ? "s" : ""}
+              <h1 className="text-3xl max-md:text-xl">{post.title}</h1>
+              <div className="flex items-center gap-4 py-2 text-xs">
+                <div>
+                  <span className="text-muted-foreground">Asked</span>{" "}
+                  {formatDate(post.createdAt)}
+                </div>
+                <div>
+                  <span className="text-muted-foreground">Viewed</span>{" "}
+                  {post?.vueXTime} time{post?.vueXTime > 1 ? "s" : ""}
+                </div>
+                {user && (
+                  <SaveButton
+                    postView={true}
+                    postId={post.id}
+                    saved={post.save[0]?.type === "saved"}
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -75,8 +87,18 @@ export default async function PostViewComponent({ post, user }: PostProps) {
             </HoverCardContent>
           </HoverCard>
         </span>
-        <span className="flex justify-between col-span-11 gap-3">
-          <div className="">
+        <span className="col-span-11 gap-3">
+          <div className="flex flex-col">
+            <div className="flex justify-end">
+              {post.parent && (
+                <MoreOptions
+                  parent={false}
+                  reply={true}
+                  post={post}
+                  user={user}
+                />
+              )}
+            </div>
             <Markdown
               className={clsx("prose dark:prose-invert", {
                 "bg-card p-2": post.title,
@@ -86,11 +108,6 @@ export default async function PostViewComponent({ post, user }: PostProps) {
             </Markdown>
             {post.code ? <CodeDisplay code={post.code} /> : ""}
           </div>
-          {!post.parent ? (
-            <MoreOptions parent={true} post={post} user={user} />
-          ) : (
-            <MoreOptions parent={false} post={post} user={user} />
-          )}
         </span>
         <div className="col-span-11">
           <UserAvatar postView={true} post={post} />

@@ -142,8 +142,12 @@ export function WritePostForm() {
             </FormItem>
           )}
         />
-        <Button variant={"default"} type="submit">
-          Poster
+        <Button
+          disabled={form.formState.isSubmitting}
+          variant={"default"}
+          type="submit"
+        >
+          {form.formState.isSubmitSuccessful ? "Posted" : "Post"}
         </Button>
       </form>
     </Form>

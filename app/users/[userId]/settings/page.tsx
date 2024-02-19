@@ -12,7 +12,7 @@ export default async function page({ params }: { params: { userId: string } }) {
 
   return (
     <div>
-      <Typography variant={"h2"}>
+      <Typography className="ml-2" variant={"code"}>
         {currentUser ? <>Edit your profile</> : <>Are you absolutely sure?</>}
       </Typography>
       <FormProfile user={user} currentUser={currentUser} />

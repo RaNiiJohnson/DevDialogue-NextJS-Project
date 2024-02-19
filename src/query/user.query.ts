@@ -20,17 +20,12 @@ export const getUser = async () => {
   const session = await getAuthSession();
 
   if (!session?.user.id) {
-    return null;
+    return;
   }
 
-  const user = await prisma.user.findFirst({
+  const user = await prisma.user.findUnique({
     where: {
       id: session.user.id,
-    },
-    select: {
-      id: true,
-      username: true,
-      image: true,
     },
   });
 
@@ -82,3 +77,4 @@ export type UserProfile = NonNullable<
 export type UserEdit = NonNullable<
   Prisma.PromiseReturnType<typeof getUserEdit>
 >;
+export type UserCurrent = NonNullable<Prisma.PromiseReturnType<typeof getUser>>;

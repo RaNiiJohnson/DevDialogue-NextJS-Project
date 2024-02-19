@@ -4,6 +4,7 @@ import { getPostView } from "@/query/post.query";
 import { getUser } from "@/query/user.query";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { DeleteCommentButton } from "./DeleteComment";
 
 type PostProps = {
   postId: string;
@@ -26,7 +27,7 @@ export default async function CommentView({
 
   return (
     <div>
-      <div className="grid grid-cols-12 text-xs">
+      <div className="grid grid-cols-12 text-xs group">
         <p className="col-span-1 ml-2 text-muted-foreground/50">
           {length > 1 ? <>{index + 1}</> : null}{" "}
         </p>
@@ -40,6 +41,9 @@ export default async function CommentView({
             {" "}
             {dateParser(post.createdAt)}{" "}
           </span>
+          {user?.id === post.user.id && (
+            <DeleteCommentButton postId={post.id} />
+          )}
         </p>
       </div>
       <Separator className="my-2" />

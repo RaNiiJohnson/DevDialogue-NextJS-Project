@@ -62,77 +62,76 @@ function FormProfile({
 }) {
   const router = useRouter();
   return (
-    <>
-      <div className="max-w-lg mx-auto my-6">
-        <Card>
-          <CardHeader>
-            {/* <CardTitle>title</CardTitle> */}
-            <CardDescription>
-              <Typography variant={"h3"}>Set up your profile</Typography>
-            </CardDescription>
-          </CardHeader>
+    <div className="">
+      <Card>
+        <CardHeader>
+          {/* <CardTitle>title</CardTitle> */}
+          <CardDescription>
+            <Typography variant={"h3"}>Set up your profile</Typography>
+          </CardDescription>
+        </CardHeader>
 
-          <CardContent>
-            <AutoForm
-              formSchema={formSchema}
-              onSubmit={async (value) => {
-                const url = await editProfile(value);
+        <CardContent>
+          <AutoForm
+            formSchema={formSchema}
+            onSubmit={async (value) => {
+              const url = await editProfile(value);
 
-                if (url) {
-                  router.push(url);
-                  window.location.href = url;
-                  router.refresh();
-                }
-              }}
-              fieldConfig={{
-                username: {
-                  inputProps: {
-                    defaultValue: user.username,
-                    autoFocus: true,
-                    autoCorrect: "false",
-                    autoCapitalize: "true",
-                  },
+              if (url) {
+                router.push(url);
+                window.location.href = url;
+                router.refresh();
+              }
+            }}
+            fieldConfig={{
+              username: {
+                inputProps: {
+                  defaultValue: user.username,
+                  autoFocus: true,
+                  autoCorrect: "false",
+                  autoCapitalize: "true",
                 },
-                location: {
-                  inputProps: {
-                    defaultValue: user.location ?? "",
-                  },
+              },
+              location: {
+                inputProps: {
+                  defaultValue: user.location ?? "",
                 },
-                bio: {
-                  inputProps: {
-                    defaultValue: user.bio ?? "",
-                  },
+              },
+              bio: {
+                inputProps: {
+                  defaultValue: user.bio ?? "",
                 },
-                about: {
-                  fieldType: "textarea",
-                  inputProps: {
-                    value: "",
-                    defaultValue: user.about ?? "",
-                    autoCorrect: "false",
-                  },
+              },
+              about: {
+                fieldType: "textarea",
+                inputProps: {
+                  value: "",
+                  defaultValue: user.about ?? "",
+                  autoCorrect: "false",
+                  spellCheck: "false",
                 },
-                link: {
-                  inputProps: {
-                    defaultValue: user.link ?? "",
-                  },
+              },
+              link: {
+                inputProps: {
+                  defaultValue: user.link ?? "",
                 },
-              }}
-            >
-              {currentUser?.id === user.id ? (
-                <AutoFormSubmit>Edit profile</AutoFormSubmit>
-              ) : (
-                <RedirectionButton
-                  title="Edit profile"
-                  size={"default"}
-                  variantButton="default"
-                  action="kkkk"
-                />
-              )}
-            </AutoForm>
-          </CardContent>
-        </Card>
-      </div>
-    </>
+              },
+            }}
+          >
+            {currentUser?.id === user.id ? (
+              <AutoFormSubmit>Edit profile</AutoFormSubmit>
+            ) : (
+              <RedirectionButton
+                title="Edit profile"
+                size={"default"}
+                variantButton="default"
+                action="kkkk"
+              />
+            )}
+          </AutoForm>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
 

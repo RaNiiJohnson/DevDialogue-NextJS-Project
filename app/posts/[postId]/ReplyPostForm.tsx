@@ -116,8 +116,12 @@ export function ReplyPostForm({ post, user }: PostProps) {
           )}
         />
         {user ? (
-          <Button variant={"default"} type="submit">
-            Reply
+          <Button
+            disabled={form.formState.isSubmitting}
+            variant={"default"}
+            type="submit"
+          >
+            {form.formState.isSubmitting ? "Replying.." : "Reply"}
           </Button>
         ) : (
           <RedirectionButton

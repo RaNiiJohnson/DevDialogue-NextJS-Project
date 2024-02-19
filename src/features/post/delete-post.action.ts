@@ -7,14 +7,19 @@ import { revalidatePath } from "next/cache";
 export const DeletePost = async (postId: string) => {
   const session = await getAuthSession();
 
-  if (!session?.user.id) return;
+  if (!session?.user.id) throw new Error("invalid session");
+  if (typeof postId !== "string") throw new Error("invalid postId");
 
   await prisma.post.delete({
     where: {
       id: postId,
+      userId: session.user.id,
     },
   });
 
   revalidatePath("/");
   revalidatePath(`/posts/${postId}`);
+  return {
+    ok: "ok",
+  };
 };

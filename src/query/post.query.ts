@@ -61,10 +61,9 @@ export const postSelectQuery = (userId?: string) =>
       select: {
         id: true,
         createdAt: true,
-        post: true,
         postId: true,
-        user: true,
         userId: true,
+        type: true,
       },
     },
   } satisfies Prisma.PostSelect);
@@ -100,8 +99,8 @@ export const getPostView = (id: string, userId?: string) =>
     },
   });
 
-export const getPost = (id: string, userId: string) =>
-  prisma.post.findUnique({
+export const getPost = (id: string, userId?: string) =>
+  prisma.post.findUniqueOrThrow({
     where: {
       id,
       userId,
@@ -111,5 +110,38 @@ export const getPost = (id: string, userId: string) =>
       ...postSelectQuery(userId),
     },
   });
+export const getSavedPost = (userId: string) =>
+  prisma.save.findMany({
+    where: {
+      userId,
+    },
+    select: {
+      createdAt: true,
+      id: true,
+      postId: true,
+      userId: true,
+      type: true,
+      post: {
+        select: {
+          ...postSelectQuery(userId),
+        },
+      },
+    },
+  });
+
+export const getOneSavedPost = (id: string) =>
+  prisma.save.findUnique({
+    where: {
+      id,
+    },
+    select: {
+      createdAt: true,
+      id: true,
+      postId: true,
+      userId: true,
+      type: true,
+    },
+  });
 
 export type PostHome = Prisma.PromiseReturnType<typeof getLatestPosts>[number];
+export type PostSaved = Prisma.PromiseReturnType<typeof getSavedPost>[];

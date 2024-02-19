@@ -16,14 +16,14 @@ const CodeDisplay = ({ code }: CodeDisplayProps) => {
     setTimeout(() => setCopied(false), 2000); // Reset copied state after 2 seconds
   };
   return (
-    <div className="relative">
+    <div className="relative min-w-full group">
       <CodeEditor
         readOnly={true}
         className="bg-blue-100 dark:bg-blue-950"
         value={code}
         language="js"
         placeholder="Enter your code."
-        padding={20}
+        padding={16}
         style={{
           fontFamily:
             "ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
@@ -31,7 +31,7 @@ const CodeDisplay = ({ code }: CodeDisplayProps) => {
       />
 
       <Copy
-        className="absolute z-20 transition cursor-pointer top-1 right-1 text-muted-foreground hover:text-current"
+        className="absolute z-20 hidden transition cursor-pointer group-hover:block top-1 right-1 text-muted-foreground hover:text-current"
         size={15}
         onClick={copyCode}
       />

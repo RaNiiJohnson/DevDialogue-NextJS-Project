@@ -15,8 +15,9 @@ import { UserProfile } from "@/query/user.query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
-import { createReply } from "../reply-post-action";
+import { createReply } from "../../../../app/posts/[postId]/reply-post-action";
 
 const formSchema = z.object({
   content: z.string().min(2, {
@@ -47,6 +48,7 @@ export function CommentPostForm({ post, user }: PostProps) {
     const postId = await createReply(post.id, values);
     if (postId) {
       router.refresh();
+      toast.success("comment added successfully");
     }
     form.reset();
   }
@@ -72,8 +74,13 @@ export function CommentPostForm({ post, user }: PostProps) {
             )}
           />
           {user ? (
-            <Button variant={"secondary"} size="sm" type="submit">
-              Comment
+            <Button
+              disabled={form.formState.isSubmitting}
+              variant={"secondary"}
+              size="sm"
+              type="submit"
+            >
+              {form.formState.isSubmitting ? "Add comment.." : "Comment"}
             </Button>
           ) : (
             <RedirectionButton

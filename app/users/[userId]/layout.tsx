@@ -25,7 +25,7 @@ export default async function Profile({
 
   return (
     <div>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 max-md:flex-col max-md:items-start">
         <Avatar size="profil">
           <AvatarFallback size="lg">{user.username.slice(0, 3)}</AvatarFallback>
           {user.image ? (
@@ -35,29 +35,33 @@ export default async function Profile({
           )}
         </Avatar>
         <div className="flex flex-col">
-          <div className="text-3xl font-medium">{user.username}</div>
+          <div className="text-3xl font-medium max-sm:text-xl">
+            {user.username}
+          </div>
           {user.bio ? (
-            <div className="text-lg text-muted-foreground">{user.bio}</div>
+            <div className="text-lg max-sm:text-sm text-accent-foreground/80">
+              {user.bio}
+            </div>
           ) : null}
-          <div className="text-xs text-muted-foreground">
+          <div className="pt-2 text-xs text-muted-foreground">
             <div className="flex items-center gap-1">
               <Calendar size={15} />
               <span>Member for {formatProfilDate(user.createdAt)}</span>
             </div>
-            <div className="flex items-center gap-1">
+            <div className="flex flex-wrap items-center gap-1">
               {user.link ? (
-                <>
+                <span className="flex gap-1">
                   <LinkIcon size={15} />
-                  <span>{removeHttp(user.link)}</span>
-                </>
+                  {removeHttp(user.link)}
+                </span>
               ) : (
                 ".;"
               )}
               {user.location ? (
-                <>
+                <span className="flex gap-1">
                   <MapPin size={15} />
-                  <span>{user.location}</span>
-                </>
+                  {user.location}
+                </span>
               ) : (
                 ".."
               )}

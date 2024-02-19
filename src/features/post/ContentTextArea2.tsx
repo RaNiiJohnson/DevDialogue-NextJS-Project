@@ -24,6 +24,7 @@ export const ContentTextArea2 = forwardRef<
   if (props)
     return (
       <textarea
+        spellCheck={false}
         ref={ref}
         onChange={(e) => {
           handleChange(e);

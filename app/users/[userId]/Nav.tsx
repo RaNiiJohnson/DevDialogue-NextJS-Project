@@ -17,7 +17,7 @@ export default function Nav({
   const activeSettings = pathname === `/users/${user.id}/settings`;
 
   return (
-    <nav className="flex gap-2 py-4">
+    <nav className="flex flex-wrap gap-2 py-4">
       <Link
         className={
           activeProfile
