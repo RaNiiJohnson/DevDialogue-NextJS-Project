@@ -51,7 +51,7 @@ export function PostViewPlaceholder() {
 }
 export function ProfileLoader() {
   return (
-    <div className="m-auto">
+    <div className="flex justify-center w-full m-auto center">
       <Loader size={30} />
     </div>
   );
