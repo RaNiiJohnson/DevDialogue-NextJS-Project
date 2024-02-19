@@ -21,7 +21,9 @@ export default async function UserPage({ params }: PageParams) {
         <Typography className="ml-2" variant={"code"}>
           About
         </Typography>
-        <Markdown className="my-3">{user?.about}</Markdown>
+        <Markdown className="my-3 prose dark:prose-invert">
+          {user?.about}
+        </Markdown>
       </div>
       <div>
         <Typography className="mb-3 ml-2" variant={"code"}>

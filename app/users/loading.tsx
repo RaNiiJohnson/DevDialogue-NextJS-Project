@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function page() {
+export default function loader() {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-2 max-md:flex-col max-md:items-start">
