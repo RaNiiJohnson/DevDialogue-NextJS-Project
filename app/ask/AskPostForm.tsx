@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { ContentTextArea } from "@/features/post/ContentTextArea";
+import { ContentTextArea } from "@/components/ContentTextArea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import { useRouter } from "next/navigation";

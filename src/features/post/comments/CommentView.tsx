@@ -32,17 +32,17 @@ export default async function CommentView({
           {length > 1 ? <>{index + 1}</> : null}{" "}
         </p>
         <p className="items-center w-full col-span-11 ">
-          {post.content} --{" "}
-          <Link href={`/users/${post.user.id}`} className="text-blue-500">
+          {post?.content} --{" "}
+          <Link href={`/users/${post?.user.id}`} className="text-blue-500">
             {" "}
-            {post.user.username}{" "}
+            {post?.user.username}{" "}
           </Link>
           <span className="text-muted-foreground">
             {" "}
-            {dateParser(post.createdAt)}{" "}
+            {dateParser(post?.createdAt)}{" "}
           </span>
-          {user?.id === post.user.id && (
-            <DeleteCommentButton postId={post.id} />
+          {user?.id === post?.user.id && (
+            <DeleteCommentButton postId={post?.id} />
           )}
         </p>
       </div>

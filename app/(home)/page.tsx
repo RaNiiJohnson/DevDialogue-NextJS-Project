@@ -1,4 +1,4 @@
-import HomeLayout from "@/features/post/HomeLayout";
+import HomeLayout from "@/components/HomeLayout";
 import { Post } from "@/features/post/Post";
 import { getAuthSession } from "@/lib/auth";
 import { getLatestPosts } from "@/query/post.query";

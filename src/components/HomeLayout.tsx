@@ -2,7 +2,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { getAuthSession } from "@/lib/auth";
 import Link from "next/link";
-import RedirectionButton from "../layout/auth/RedirectionLoginButton";
+import RedirectionButton from "../features/layout/auth/RedirectionLoginButton";
 
 export default async function HomeLayout({
   children,

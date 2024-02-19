@@ -9,7 +9,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import RedirectionButton from "@/features/layout/auth/RedirectionLoginButton";
-import { ContentTextArea2 } from "@/features/post/ContentTextArea2";
+import { ContentTextArea2 } from "@/components/ContentTextArea2";
 import { PostHome } from "@/query/post.query";
 import { UserProfile } from "@/query/user.query";
 import { zodResolver } from "@hookform/resolvers/zod";

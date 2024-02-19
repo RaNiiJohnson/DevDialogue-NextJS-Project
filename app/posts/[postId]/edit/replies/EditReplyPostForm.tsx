@@ -1,7 +1,7 @@
 "use client";
 import { SubmitButton } from "@/components/SubmitButton";
 import RedirectionButton from "@/features/layout/auth/RedirectionLoginButton";
-import { ContentTextArea } from "@/features/post/ContentTextArea";
+import { ContentTextArea } from "@/components/ContentTextArea";
 import { PostHome } from "@/query/post.query";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import { useRouter } from "next/navigation";

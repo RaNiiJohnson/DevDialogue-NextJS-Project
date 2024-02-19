@@ -128,14 +128,14 @@ export default function MoreOptions({
                 variant={"destructive"}
                 onClick={() =>
                   startTransition(async () => {
-                    const postId = await DeletePost(post.id);
+                    const postId = await DeletePost({ postId: post.id });
 
                     reply
                       ? toast.success("response successfully deleted")
                       : toast.success("Post successfully deleted");
 
                     setOpen(false);
-                    if (parent) router.push("/");
+                    if (parent) router.push(" ");
                   })
                 }
               >

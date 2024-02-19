@@ -11,7 +11,7 @@ import Markdown from "react-markdown";
 import UserAvatar from "../user/Avatar";
 import MoreOptions from "../user/MoreOptions";
 import CodeDisplay from "./Code";
-import HomeLayout from "./HomeLayout";
+import HomeLayout from "../../components/HomeLayout";
 import { CommentPostForm } from "./comments/CommentPostForm";
 import CommentView from "./comments/CommentView";
 import { SaveButton } from "./saves/SaveButton";

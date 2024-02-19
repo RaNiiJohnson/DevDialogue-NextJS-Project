@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import RedirectionButton from "@/features/layout/auth/RedirectionLoginButton";
-import { ContentTextArea } from "@/features/post/ContentTextArea";
+import { ContentTextArea } from "@/components/ContentTextArea";
 import { PostHome } from "@/query/post.query";
 import { UserProfile } from "@/query/user.query";
 import { zodResolver } from "@hookform/resolvers/zod";

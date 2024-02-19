@@ -1,25 +1,26 @@
 "use server";
 
-import { getAuthSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { authAction } from "@/lib/safe-action";
 import { revalidatePath } from "next/cache";
+import { z } from "zod";
 
-export const DeletePost = async (postId: string) => {
-  const session = await getAuthSession();
+export const DeletePost = authAction(
+  z.object({
+    postId: z.string(),
+  }),
+  async ({ postId }, { userId }) => {
+    await prisma.post.delete({
+      where: {
+        id: postId,
+        userId: userId,
+      },
+    });
 
-  if (!session?.user.id) throw new Error("invalid session");
-  if (typeof postId !== "string") throw new Error("invalid postId");
-
-  await prisma.post.delete({
-    where: {
-      id: postId,
-      userId: session.user.id,
-    },
-  });
-
-  revalidatePath("/");
-  revalidatePath(`/posts/${postId}`);
-  return {
-    ok: "ok",
-  };
-};
+    revalidatePath("/");
+    revalidatePath(`/posts/${postId}`);
+    return {
+      ok: "ok",
+    };
+  }
+);

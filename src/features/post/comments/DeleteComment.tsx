@@ -22,7 +22,7 @@ export const DeleteCommentButton = ({
       size={"icon"}
       onClick={() =>
         startTransition(async () => {
-          const post = await DeletePost(postId);
+          const post = await DeletePost({ postId: postId });
 
           if (post) {
             toast.success("comment successfully deleted");
