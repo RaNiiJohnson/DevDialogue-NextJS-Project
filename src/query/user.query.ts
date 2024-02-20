@@ -19,11 +19,9 @@ const userQuery = {
 export const getUser = async () => {
   const session = await getAuthSession();
 
-  if (!session?.user.id) {
-    return;
-  }
+  if (!session?.user) return;
 
-  const user = await prisma.user.findUnique({
+  const user = await prisma.user.findUniqueOrThrow({
     where: {
       id: session.user.id,
     },
@@ -33,6 +31,7 @@ export const getUser = async () => {
 };
 
 export const getUserProfile = cache(async (userId: string) => {
+  const user = await getUser();
   return prisma.user.findFirst({
     where: {
       OR: [
@@ -47,7 +46,7 @@ export const getUserProfile = cache(async (userId: string) => {
     select: {
       ...userQuery,
       posts: {
-        select: postSelectQuery(userId),
+        select: postSelectQuery(user?.id),
         orderBy: {
           createdAt: "desc",
         },

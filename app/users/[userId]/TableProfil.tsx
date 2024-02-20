@@ -19,7 +19,7 @@ export const TableProfil = ({
           <SaveButton
             postId={post.id}
             profil={true}
-            saved={post.save[0]?.type === "saved"}
+            saved={post.save.length > 0}
           />
         </TableCell>
       )}

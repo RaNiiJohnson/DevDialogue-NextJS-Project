@@ -8,10 +8,10 @@ import { PostHome } from "@/query/post.query";
 import { UserProfile } from "@/query/user.query";
 import clsx from "clsx";
 import Markdown from "react-markdown";
+import HomeLayout from "../../components/HomeLayout";
 import UserAvatar from "../user/Avatar";
 import MoreOptions from "../user/MoreOptions";
 import CodeDisplay from "./Code";
-import HomeLayout from "../../components/HomeLayout";
 import { CommentPostForm } from "./comments/CommentPostForm";
 import CommentView from "./comments/CommentView";
 import { SaveButton } from "./saves/SaveButton";
@@ -49,7 +49,7 @@ export default async function PostViewComponent({ post, user }: PostProps) {
                   <SaveButton
                     postView={true}
                     postId={post.id}
-                    saved={post.save[0]?.type === "saved"}
+                    saved={post.save.length > 0}
                   />
                 )}
               </div>

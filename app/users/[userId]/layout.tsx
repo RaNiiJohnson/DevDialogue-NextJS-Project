@@ -36,7 +36,7 @@ export default async function Profile({
         </Avatar>
         <div className="flex flex-col">
           <div className="text-3xl font-medium max-sm:text-xl">
-            {user.username}
+            {user.username}({user.name})
           </div>
           {user.bio ? (
             <div className="text-lg max-sm:text-sm text-accent-foreground/80">

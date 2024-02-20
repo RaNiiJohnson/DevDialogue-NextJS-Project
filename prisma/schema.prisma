@@ -98,7 +98,6 @@ model Save {
   id        String   @id @default(cuid())
   postId    String
   userId    String
-  type      String
   createdAt DateTime @default(now())
 
   post Post @relation(fields: [postId], references: [id], onDelete: Cascade)

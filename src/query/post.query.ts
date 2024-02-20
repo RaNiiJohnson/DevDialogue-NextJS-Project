@@ -63,7 +63,9 @@ export const postSelectQuery = (userId?: string) =>
         createdAt: true,
         postId: true,
         userId: true,
-        type: true,
+      },
+      where: {
+        userId: userId ?? "error",
       },
     },
   } satisfies Prisma.PostSelect);
@@ -120,7 +122,6 @@ export const getSavedPost = (userId: string) =>
       id: true,
       postId: true,
       userId: true,
-      type: true,
       post: {
         select: {
           ...postSelectQuery(userId),
@@ -139,7 +140,6 @@ export const getOneSavedPost = (id: string) =>
       id: true,
       postId: true,
       userId: true,
-      type: true,
     },
   });
 

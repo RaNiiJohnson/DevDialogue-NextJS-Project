@@ -1,5 +1,5 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getAuthSession } from "@/lib/auth";
+import { LoggedInButton } from "./LoggedInButton";
 import { LoginButton } from "./LoginButton";
 
 export const AuthButton = async () => {
@@ -8,19 +8,5 @@ export const AuthButton = async () => {
   if (!session) {
     return <LoginButton />;
   }
-  return (
-    <div>
-      <Avatar size="sm">
-        <AvatarFallback size="default">
-          {session.user?.name?.[0]}
-        </AvatarFallback>
-        {session.user.image && (
-          <AvatarImage
-            src={session.user.image}
-            alt={session.user.name ?? "user picture"}
-          />
-        )}
-      </Avatar>
-    </div>
-  );
+  return <LoggedInButton user={session.user} />;
 };

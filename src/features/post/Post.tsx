@@ -37,9 +37,7 @@ export const Post = ({ post, user }: PostProps) => {
         <div className=" text-muted-foreground">
           {post._count.PostView} view{post._count.PostView > 1 ? "s" : ""}
         </div>
-        {user && (
-          <SaveButton postId={post.id} saved={post.save[0]?.type === "saved"} />
-        )}
+        {user && <SaveButton postId={post.id} saved={post.save.length > 0} />}
       </div>
       <div className="flex justify-between col-span-10 gap-2 max-md:col-span-12 ">
         <div className="flex flex-col gap-1">

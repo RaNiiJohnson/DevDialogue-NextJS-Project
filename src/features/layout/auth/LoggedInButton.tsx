@@ -18,26 +18,27 @@ import {
 import { Loader } from "@/components/ui/loader";
 import { AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
 import { DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
-import { useMutation } from "@tanstack/react-query";
-import { LogOut, LogOutIcon, User2 } from "lucide-react";
+import { LogOut, User2 } from "lucide-react";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
+import { useTransition } from "react";
 
 export type LoggedInButtonProps = {
   user: Session["user"];
 };
 
 export const LoggedInButton = (props: LoggedInButtonProps) => {
-  const mutation = useMutation({
-    mutationFn: async () => signOut(),
-  });
+  const [isPending, startTransition] = useTransition();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="sm">
           <Avatar size="default" className="w-6 h-6 mr-2">
-            <AvatarFallback>{props.user?.name?.[0]}</AvatarFallback>
+            <AvatarFallback size="default">
+              {props.user?.name?.[0]}
+            </AvatarFallback>
             {props.user.image && (
               <AvatarImage
                 src={props.user.image}
@@ -70,12 +71,15 @@ export const LoggedInButton = (props: LoggedInButtonProps) => {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <Button variant="destructive" onClick={() => mutation.mutate()}>
-              {mutation.isPending ? (
-                <Loader size={12} className="mr-2" />
+            <Button
+              variant="destructive"
+              onClick={() => startTransition(() => signOut())}
+            >
+              {isPending ? (
+                <Loader className="w-4 h-4 mr-2" />
               ) : (
-                <LogOutIcon size={12} className="mr-2" />
-              )}
+                <LogOut className="w-4 h-4 mr-2" />
+              )}{" "}
               Logout
             </Button>
           </AlertDialogFooter>

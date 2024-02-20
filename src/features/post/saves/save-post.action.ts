@@ -11,12 +11,14 @@ export const savePost = async (postId: string) => {
 
   if (!user) return notFound();
 
-  const post = await getPost(postId, user.id);
+  const post = await getPost(postId);
+
+  if (!post) return notFound();
 
   const isSaved = await prisma.save.findFirst({
     where: {
       userId: user.id,
-      postId: post?.id,
+      postId: post.id,
     },
     select: {
       id: true,
@@ -41,7 +43,6 @@ export const savePost = async (postId: string) => {
       data: {
         userId: user.id,
         postId,
-        type: "saved",
       },
     });
     revalidatePath("/");

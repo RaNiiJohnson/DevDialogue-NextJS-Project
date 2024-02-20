@@ -3,6 +3,7 @@ import { Table, TableBody } from "@/components/ui/table";
 import { getUser, getUserProfile } from "@/query/user.query";
 import Markdown from "react-markdown";
 import { TableProfil } from "./TableProfil";
+import { getLatestPosts, getPostView } from "@/query/post.query";
 
 type PageParams = {
   params: {
