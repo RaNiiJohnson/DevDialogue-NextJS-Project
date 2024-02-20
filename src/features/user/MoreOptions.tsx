@@ -63,7 +63,7 @@ export default function MoreOptions({
                   postView={true}
                   moreOptions={true}
                   postId={post.id}
-                  saved={post.save[0]?.type === "saved"}
+                  saved={post.save.length > 0}
                 />
               ) : (
                 <>

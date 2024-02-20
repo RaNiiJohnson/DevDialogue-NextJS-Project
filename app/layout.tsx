@@ -1,14 +1,10 @@
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
-import { TailwindIndicator } from "@/components/utils/TailwindIndicator";
 import { Providers } from "@/components/utils/providers";
 import { Footer } from "@/features/layout/Footer";
 import { Header } from "@/features/layout/Header";
 import { SiteConfig } from "@/lib/site-config";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-
-const fontSans = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: SiteConfig.title,
