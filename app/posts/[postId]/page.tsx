@@ -2,9 +2,25 @@ import PostViewComponent from "@/features/post/PostViewComponent";
 import { getAuthSession } from "@/lib/auth";
 import { getPostView } from "@/query/post.query";
 import { getUserProfile } from "@/query/user.query";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ReplyPostForm } from "./ReplyPostForm";
 
+export const generateMetadata = async ({
+  params,
+}: PageParams): Promise<Metadata> => {
+  const post = await getPostView(params.postId);
+
+  return {
+    title: `${post?.title}`,
+  };
+};
+
+type PageParams = {
+  params: {
+    postId: string;
+  };
+};
 export default async function PostView({
   params,
 }: {

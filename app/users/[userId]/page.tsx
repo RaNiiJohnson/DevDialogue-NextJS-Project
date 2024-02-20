@@ -2,9 +2,20 @@ import { Typography } from "@/components/ui/Typography";
 import { Card, CardContent } from "@/components/ui/card";
 import { Table, TableBody } from "@/components/ui/table";
 import { getUser, getUserProfile } from "@/query/user.query";
+import { Metadata } from "next";
 import Link from "next/link";
 import Markdown from "react-markdown";
 import { TableProfil } from "./TableProfil";
+
+export const generateMetadata = async ({
+  params,
+}: PageParams): Promise<Metadata> => {
+  const user = await getUserProfile(params.userId);
+
+  return {
+    title: `${user?.name} (${user?.username})`,
+  };
+};
 
 type PageParams = {
   params: {
@@ -28,7 +39,7 @@ export default async function UserPage({ params }: PageParams) {
             {user.about}
           </Markdown>
         )}{" "}
-        {currentUser?.id === user?.id ? (
+        {currentUser?.id === user?.id && !user?.about && (
           <Card className="h-32 my-3">
             <CardContent>
               <div className="text-center prose prose-invert justify-center text-sm flex items-center my-auto h-32 flex-wrap">
@@ -45,7 +56,8 @@ export default async function UserPage({ params }: PageParams) {
               </div>
             </CardContent>
           </Card>
-        ) : (
+        )}
+        {currentUser?.id !== user?.id && !user?.about && (
           <Card className="h-16 my-3">
             <CardContent>
               <div className="text-center prose prose-invert justify-center text-sm flex items-center my-auto h-16 text-muted-foreground flex-wrap">
@@ -71,7 +83,7 @@ export default async function UserPage({ params }: PageParams) {
             </Table>
           </div>
         )}
-        {currentUser?.id === user?.id ? (
+        {currentUser?.id === user?.id && !user?.posts && (
           <Card className="h-32 my-3">
             <CardContent>
               <div className="text-center prose prose-invert justify-center text-sm flex items-center my-auto h-32 flex-wrap">
@@ -84,7 +96,8 @@ export default async function UserPage({ params }: PageParams) {
               </div>
             </CardContent>
           </Card>
-        ) : (
+        )}
+        {currentUser?.id !== user?.id && !user?.posts && (
           <Card className="h-16 my-3">
             <CardContent>
               <div className="text-center text-muted-foreground prose prose-invert justify-center text-sm flex items-center my-auto h-16 flex-wrap">
