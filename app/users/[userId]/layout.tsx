@@ -3,6 +3,7 @@ import { getAuthSession } from "@/lib/auth";
 import { formatProfilDate } from "@/lib/date";
 import { getUserProfile } from "@/query/user.query";
 import { Calendar, LinkIcon, MapPin } from "lucide-react";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import Nav from "./Nav";
 
@@ -36,7 +37,7 @@ export default async function Profile({
         </Avatar>
         <div className="flex flex-col">
           <div className="text-3xl font-medium max-sm:text-xl">
-            {user.username}({user.name})
+            {user.username}
           </div>
           {user.bio ? (
             <div className="text-lg max-sm:text-sm text-accent-foreground/80">
@@ -50,12 +51,12 @@ export default async function Profile({
             </div>
             <div className="flex flex-wrap items-center gap-1">
               {user.link ? (
-                <span className="flex gap-1">
+                <Link href={user.link} className="flex gap-1 cursor-pointer">
                   <LinkIcon size={15} />
                   {removeHttp(user.link)}
-                </span>
+                </Link>
               ) : (
-                ".;"
+                <div>.;</div>
               )}
               {user.location ? (
                 <span className="flex gap-1">
@@ -63,7 +64,7 @@ export default async function Profile({
                   {user.location}
                 </span>
               ) : (
-                ".."
+                <div>..</div>
               )}
             </div>
           </div>

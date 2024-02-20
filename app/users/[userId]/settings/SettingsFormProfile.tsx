@@ -23,23 +23,20 @@ const formSchema = z.object({
   location: z
     .string()
     .min(2, {
-      message: "Username must be at least 2 characters.",
+      message: "location must be at least 2 characters.",
     })
     .optional(),
   bio: z
     .string()
     .min(2, {
-      message: "Username must be at least 2 characters.",
+      message: "bio must be at least 2 characters.",
     })
     .optional(),
 
   about: z
     .string()
     .min(10, {
-      message: "Bio must be at least 10 characters.",
-    })
-    .max(160, {
-      message: "Bio must not be longer than 30 characters.",
+      message: "about must be at least 10 characters.",
     })
     .optional(),
 

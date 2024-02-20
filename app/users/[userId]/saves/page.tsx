@@ -15,7 +15,7 @@ export default async function page() {
   return (
     <div>
       <Typography className="ml-2" variant={"code"}>
-        {postSaved.length === 0 ? "No" : postSaved.length} post
+        {postSaved.length === 0 ? "No" : postSaved.length} question
         {postSaved.length > 1 ? "s" : ""} saved
       </Typography>
       <Table className="">
