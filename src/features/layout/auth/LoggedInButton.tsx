@@ -52,7 +52,7 @@ export const LoggedInButton = (props: LoggedInButtonProps) => {
       <AlertDialog>
         <DropdownMenuContent>
           <DropdownMenuItem asChild>
-            <Link href="/account">
+            <Link href={`/users/${props.user.id}/`}>
               <User2 size={12} className="mr-2" />
               Account
             </Link>
