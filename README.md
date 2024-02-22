@@ -7,6 +7,7 @@ This is a project inspired by Stack Overflow, where users can ask questions, ans
 - Next.js
 - Tailwind
 - Prisma
+- shadcn/ui
 
 ## Screenshots
 
