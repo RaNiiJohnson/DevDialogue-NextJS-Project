@@ -28,7 +28,7 @@ export default async function CommentView({
   return (
     <div>
       <div className="grid grid-cols-12 text-xs group">
-        <p className="col-span-1 ml-2 text-muted-foreground/50">
+        <p className="col-span-1 mx-auto text-muted-foreground/50">
           {length > 1 ? <>{index + 1}</> : null}{" "}
         </p>
         <p className="items-center w-full col-span-11 ">
@@ -42,7 +42,10 @@ export default async function CommentView({
             {dateParser(post?.createdAt)}{" "}
           </span>
           {user?.id === post?.user.id && (
-            <DeleteCommentButton postId={post?.id} />
+            <DeleteCommentButton
+              className="text-blue-500 transition opacity-0 group-hover:opacity-100"
+              postId={post?.id}
+            />
           )}
         </p>
       </div>

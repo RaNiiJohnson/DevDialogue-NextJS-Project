@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import { Loader } from "@/components/ui/loader";
 import { Trash2 } from "lucide-react";
 import { useTransition } from "react";
@@ -15,11 +14,9 @@ export const DeleteCommentButton = ({
 }) => {
   const [isPending, startTransition] = useTransition();
   return (
-    <Button
+    <button
       className={className}
       disabled={isPending}
-      variant={"link"}
-      size={"icon"}
       onClick={() =>
         startTransition(async () => {
           const post = await DeletePost({ postId: postId });
@@ -31,6 +28,6 @@ export const DeleteCommentButton = ({
       }
     >
       {isPending ? <Loader size={13} /> : <Trash2 size={13} />}
-    </Button>
+    </button>
   );
 };
