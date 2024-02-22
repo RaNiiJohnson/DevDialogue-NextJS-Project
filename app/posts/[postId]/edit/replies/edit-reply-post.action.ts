@@ -23,6 +23,9 @@ export const editReplyPost = async ({
 
   if (!userId) return;
 
+  if (typeof content !== "string" || typeof code !== "string")
+    throw new Error("Invalid content or code");
+
   await prisma.post.update({
     where: {
       userId,

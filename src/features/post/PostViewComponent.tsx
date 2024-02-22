@@ -90,7 +90,7 @@ export default async function PostViewComponent({ post, user }: PostProps) {
         <span className="col-span-11 gap-3">
           <div className="flex flex-col">
             <div className="flex justify-end">
-              {post.parent && (
+              {post.parent && post.user.id === user?.id && (
                 <MoreOptions
                   parent={false}
                   reply={true}

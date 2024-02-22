@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { PostHome } from "@/query/post.query";
+import { revalidatePath } from "next/cache";
 
 export const editPost = async ({
   post,
@@ -41,6 +42,9 @@ export const editPost = async ({
       title,
     },
   });
+
+  revalidatePath("/");
+  revalidatePath(`/posts/${post.id}`);
 
   return {
     message: "Post updated successfully",

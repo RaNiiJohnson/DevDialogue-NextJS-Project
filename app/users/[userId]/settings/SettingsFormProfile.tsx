@@ -58,6 +58,7 @@ function FormProfile({
   currentUser?: UserProfile | null;
 }) {
   const router = useRouter();
+
   return (
     <div className="">
       <Card>
@@ -73,10 +74,9 @@ function FormProfile({
             formSchema={formSchema}
             onSubmit={async (value) => {
               const url = await editProfile(value);
-
               if (url) {
                 router.push(url);
-                window.location.href = url;
+                // window.location.href = url;
                 router.refresh();
               }
             }}

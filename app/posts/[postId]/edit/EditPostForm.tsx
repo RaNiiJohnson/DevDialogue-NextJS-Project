@@ -1,12 +1,12 @@
 "use client";
+import { ContentTextArea } from "@/components/ContentTextArea";
 import { SubmitButton } from "@/components/SubmitButton";
 import { Input } from "@/components/ui/input";
 import RedirectionButton from "@/features/layout/auth/RedirectionLoginButton";
-import { ContentTextArea } from "@/components/ContentTextArea";
 import { PostHome } from "@/query/post.query";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import { useRouter } from "next/navigation";
-import { FormEventHandler } from "react";
+import { FormEventHandler, useState } from "react";
 import { toast } from "sonner";
 import { editPost } from "./edit-post.action";
 
@@ -18,6 +18,8 @@ export const EditPostForm = ({
   post: PostHome;
 }) => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
   const onsubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -25,7 +27,11 @@ export const EditPostForm = ({
 
     if (!post) return;
 
+    setIsLoading(true);
+
     const result = await editPost({ post, userId, formData });
+
+    setIsLoading(false);
 
     if (!result) return;
 
@@ -34,14 +40,13 @@ export const EditPostForm = ({
       return;
     }
 
-    form.reset();
     form.focus();
 
-    window.location.href = `${window.location.origin}/posts/${post.id}`;
+    // window.location.href = `${window.location.origin}/posts/${post.id}`;
 
-    router.push(`/posts/${post.id}`);
-    router.refresh();
-
+    // router.push(`/posts/${post.id}`);
+    router.back();
+    // router.refresh();
     toast.success(result.message);
   };
 

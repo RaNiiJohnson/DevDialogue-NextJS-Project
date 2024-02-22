@@ -1,5 +1,6 @@
 "use client";
 
+import { ContentTextArea } from "@/components/ContentTextArea";
 import {
   Accordion,
   AccordionContent,
@@ -17,13 +18,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import RedirectionButton from "@/features/layout/auth/RedirectionLoginButton";
-import { ContentTextArea } from "@/components/ContentTextArea";
 import { PostHome } from "@/query/post.query";
 import { UserProfile } from "@/query/user.query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 import { createReply } from "./reply-post-action";
 
@@ -57,8 +58,9 @@ export function ReplyPostForm({ post, user }: PostProps) {
     const postId = await createReply(post.id, values);
     if (postId) {
       router.refresh();
+      toast.success("Response added");
+      form.reset();
     }
-    form.reset();
   }
 
   return (

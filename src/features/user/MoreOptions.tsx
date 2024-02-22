@@ -135,7 +135,9 @@ export default function MoreOptions({
                       : toast.success("Post successfully deleted");
 
                     setOpen(false);
-                    if (parent) return router.push("/");
+                    if (parent) {
+                      return router.push("/");
+                    } else return router.refresh();
                   })
                 }
               >

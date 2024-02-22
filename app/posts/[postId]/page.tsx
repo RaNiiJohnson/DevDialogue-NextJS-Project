@@ -41,7 +41,7 @@ export default async function PostView({
     <div>
       <PostViewComponent post={post} user={user} />
       <div className="text-lg">
-        {post._count.replies} Answer{post._count.replies > 0 ? "s" : ""}
+        {post._count.replies} Answer{post._count.replies > 1 ? "s" : ""}
       </div>
       {post.replies.map((reply) => (
         <PostViewComponent post={reply} key={reply.id} user={user} />

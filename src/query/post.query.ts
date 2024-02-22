@@ -50,6 +50,7 @@ export const postSelectQuery = (userId?: string) =>
       select: {
         id: true,
         content: true,
+        createdAt: true,
         user: {
           select: {
             username: true,
@@ -90,9 +91,9 @@ export const getPostView = (id: string, userId?: string) =>
     select: {
       ...postSelectQuery(userId),
       replies: {
-        // orderBy: {
-        //   voteCount: "desc",
-        // },
+        orderBy: {
+          voteCount: "asc",
+        },
         select: postSelectQuery(userId),
       },
       parent: {

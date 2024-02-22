@@ -1,5 +1,6 @@
 "use client";
 
+import { ContentTextArea } from "@/components/ContentTextArea";
 import {
   Accordion,
   AccordionContent,
@@ -17,7 +18,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { ContentTextArea } from "@/components/ContentTextArea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import { useRouter } from "next/navigation";
@@ -54,13 +54,13 @@ export function WritePostForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const postId = await createPost(values);
     if (postId) {
-      window.location.href = `${window.location.origin}/posts/${postId}`;
+      // window.location.href = `${window.location.origin}/posts/${postId}`;
 
-      router.push(`/posts/${postId}`);
-      router.refresh();
       toast.success("Post published successfully");
+      router.push(`/posts/${postId}`);
+      // router.refresh();
+      form.reset();
     }
-    form.reset();
   }
 
   return (

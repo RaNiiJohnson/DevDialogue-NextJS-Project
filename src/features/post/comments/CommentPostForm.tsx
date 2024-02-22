@@ -19,7 +19,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { createReply } from "../../../../app/posts/[postId]/reply-post-action";
 
-const formSchema = z.object({
+export const formSchema = z.object({
   content: z.string().min(2, {
     message: "content must be at least 2 characters.",
   }),
