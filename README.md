@@ -1,6 +1,6 @@
 ## DevDialogue
 
-C'est un projet inspiré de Stack Overflow où les utilisateurs peuvent poser des questions, répondre à celles des autres, voter pour les meilleures réponses.
+This is a project inspired by Stack Overflow, where users can ask questions, answer others', and vote for the best answers.
 
 ## Made with
 
