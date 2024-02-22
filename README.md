@@ -14,7 +14,8 @@ This is a project inspired by Stack Overflow, where users can ask questions, ans
 ![2](/public/images/2.png)
 ![3](/public/images/3.png)
 ![4](/public/images/4.png)
-![5](/public/images/5.png)
+![6](/public/images/6.png)
+![7](/public/images/7.png)
 
 ## Author
 
