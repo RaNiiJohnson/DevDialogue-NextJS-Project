@@ -71,7 +71,7 @@ export function ReplyPostForm({ post, user }: PostProps) {
           name="content"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>You have any advice?</FormLabel>
+              <FormLabel>Do you have any advice?</FormLabel>
               <FormControl>
                 <ContentTextArea
                   {...field}
