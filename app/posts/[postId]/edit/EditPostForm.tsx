@@ -56,6 +56,7 @@ export const EditPostForm = ({
         name="title"
         defaultValue={post.title ?? ""}
         placeholder="Be precise, as if you were posing a question to someone else."
+        max={500}
       />
       <ContentTextArea
         className="my-5"

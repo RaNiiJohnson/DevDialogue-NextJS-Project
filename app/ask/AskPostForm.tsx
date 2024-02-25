@@ -27,9 +27,14 @@ import { z } from "zod";
 import { createPost } from "./ask-post-action";
 
 const formSchema = z.object({
-  title: z.string().min(2, {
-    message: "Title must be at least 2 characters.",
-  }),
+  title: z
+    .string()
+    .min(2, {
+      message: "Title must be at least 2 characters.",
+    })
+    .max(200, {
+      message: "Title must be at most 200 characters.",
+    }),
   content: z.string().min(2, {
     message: "content must be at least 2 characters.",
   }),
