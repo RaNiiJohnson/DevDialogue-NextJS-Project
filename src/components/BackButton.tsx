@@ -9,7 +9,6 @@ export const BackButton = () => {
     <Button
       variant="outline"
       size="sm"
-      className="w-fit"
       onClick={() => {
         router.back();
       }}
