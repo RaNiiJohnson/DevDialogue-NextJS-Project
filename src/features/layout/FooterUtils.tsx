@@ -11,7 +11,7 @@ export const FooterUtils = ({ user }: { user?: UserProfile | null }) => {
   const router = useRouter();
   const pathname = usePathname();
   return (
-    <div className="sticky bottom-0 left-0 right-0 z-50 flex justify-between flex-1 w-full max-w-2xl gap-1 py-2 m-auto border-t max-sm:px-2 sm:container bg-background border-accent">
+    <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-between flex-1 w-full max-w-2xl gap-1 py-2 m-auto border-t max-sm:px-2 sm:container bg-background border-accent">
       <Button
         variant={"ghost"}
         className="flex-1"
